@@ -1,0 +1,32 @@
+import React, {useEffect} from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { Logo } from '../../assets'
+
+const SplashScreen = ({navigation}) => {
+    useEffect(() => {
+       setTimeout(()=>{
+           navigation.replace('SignIn')
+       },2000)
+    }, []);
+
+    return (
+        <View style={styles.page}>
+            <Logo />
+            <Text style={styles.text}>HOFACT</Text>
+        </View>
+    )
+}
+
+export default SplashScreen
+
+const styles = StyleSheet.create({
+    page:{
+        backgroundColor:'#1D2D8C',
+        flex:1, 
+        alignItems:'center', 
+        justifyContent:'center'
+    },
+    text:{
+        color:'white', fontSize:24, marginTop:-30, fontFamily:'Poppins-SemiBold'
+    }
+})

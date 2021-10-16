@@ -1,0 +1,33 @@
+import IcBack from './ic_back.svg';
+import IcCalendar from './ic_calendar.svg';
+import IcVerified from './ic_baseline-verified.svg';
+import IcAnswer from './ic_baseline-question-answer.svg';
+import IcHome from './ic_home.svg';
+import IcSearch from './ic_search.svg';
+import IcProfile from './ic_profile.svg';
+import IcHomeOff from './ic_home_off.svg';
+import IcSearchOff from './ic_search_off.svg';
+import IcProfileOff from './ic_profile_off.svg';
+import IcBackWhite from './ic_back_white.svg';
+import IcUpvote from './ic_upvote.svg';
+import IcDownvote from './ic_downvote.svg';
+import IcReply from './ic_reply.svg';
+import IcPoint from './ic_point.svg';
+
+export {
+  IcBack,
+  IcCalendar,
+  IcVerified,
+  IcAnswer,
+  IcHome,
+  IcSearch,
+  IcProfile,
+  IcHomeOff,
+  IcSearchOff,
+  IcProfileOff,
+  IcBackWhite,
+  IcUpvote,
+  IcDownvote,
+  IcReply,
+  IcPoint,
+};

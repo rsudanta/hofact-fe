@@ -13,6 +13,11 @@ import IcUpvote from './ic_upvote.svg';
 import IcDownvote from './ic_downvote.svg';
 import IcReply from './ic_reply.svg';
 import IcPoint from './ic_point.svg';
+import IcSetting from './ic_setting.svg';
+import IcExp from './ic_exp.svg';
+import IcBadge from './ic_badge.svg';
+import IcAnswerProgress from './ic_ans.svg';
+import IcAsk from './ic_ask.svg';
 
 export {
   IcBack,
@@ -30,4 +35,9 @@ export {
   IcDownvote,
   IcReply,
   IcPoint,
+  IcSetting,
+  IcExp,
+  IcBadge,
+  IcAnswerProgress,
+  IcAsk,
 };

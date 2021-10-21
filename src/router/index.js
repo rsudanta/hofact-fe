@@ -1,18 +1,19 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {BottomNavigator} from '../components';
+import HeaderProfile from '../components/atoms/HeaderProfile';
 import {
+  DetailPost,
+  FormQuestion,
+  Home,
+  Profile,
+  Search,
   SignIn,
   SignUp,
   SignUpProfile,
   SplashScreen,
-  Home,
-  Search,
-  Profile,
-  FormQuestion,
-  DetailPost
 } from '../pages';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {BottomNavigator} from '../components';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,7 +30,9 @@ const MainApp = () => {
       <Tab.Screen
         name="Profile"
         component={Profile}
-        options={{headerShown: false}}
+        options={{
+          header: () => <HeaderProfile />
+        }}
       />
     </Tab.Navigator>
   );

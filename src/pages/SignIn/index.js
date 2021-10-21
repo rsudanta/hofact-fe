@@ -1,17 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, Gap, Header, TextInput } from '../../components';
+import {StyleSheet, View} from 'react-native';
+import {Button, Gap, Header, TextInput} from '../../components';
 
 const SignIn = ({navigation}) => {
-
   return (
     <View style={styles.page}>
       <Header title="Masuk" subTitle="Jawab keraguan anda!" />
       <View style={styles.container}>
-        <TextInput
-          label="Email"
-          placeholder="Masukkan email anda"
-        />
+        <TextInput label="Email" placeholder="Masukkan email anda" />
         <Gap height={16} />
         <TextInput
           label="Kata Sandi"
@@ -19,7 +15,7 @@ const SignIn = ({navigation}) => {
           secureTextEntry
         />
         <Gap height={24} />
-        <Button text="Masuk" onPress={()=>{}} />
+        <Button text="Masuk" onPress={() => {}} />
         <Gap height={12} />
         <Button
           text="Daftar"
@@ -39,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1,
+    flex: 1
   },
-  page: {flex: 1, backgroundColor: 'white'},
+  page: {flex: 1, backgroundColor: 'white'}
 });

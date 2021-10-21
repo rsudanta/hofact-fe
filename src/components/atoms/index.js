@@ -9,6 +9,7 @@ import RoundButton from './RoundButton';
 import TextArea from './TextArea';
 import ImagePicker from './ImagePicker';
 import HeaderLogo from './HeaderLogo';
+import HeaderProfile from './HeaderProfile';
 
 export {
   TextInput,
@@ -21,5 +22,5 @@ export {
   RoundButton,
   TextArea,
   ImagePicker,
-  HeaderLogo,
+  HeaderLogo
 };

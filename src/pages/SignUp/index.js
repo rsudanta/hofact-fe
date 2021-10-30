@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -8,8 +8,56 @@ import {
   View,
 } from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
+import {useSelector, useDispatch} from 'react-redux';
+import {showMessage, useForm} from '../../utils';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 const SignUp = ({navigation}) => {
+  const [form, setForm] = useForm({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const [photo, setPhoto] = useState('');
+
+  const addPhoto = () => {
+    launchImageLibrary(
+      {
+        quality: 0.7,
+        maxWidth: 200,
+        maxHeight: 200
+      },
+      res => {
+        console.log('Response photo = ', res);
+
+        if (res.didCancel || res.error) {
+          showMessage('Anda tidak memilih foto');
+        } else {
+          const source = {uri: res.assets[0].uri};
+          const dataImage = {
+            uri: res.assets[0].uri,
+            type: res.assets[0].type,
+            name: res.assets[0].fileName,
+          };
+
+          setPhoto(source);
+
+          dispatch({type: 'SET_PHOTO', value: dataImage});
+          dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+        }
+      }
+    );
+  };
+
+  const onSubmit = () => {
+    console.log('form:', form);
+    dispatch({type: 'SET_REGISTER', value: form});
+    navigation.navigate('SignUpProfile');
+  };
+
   return (
     <ScrollView style={styles.page}>
       <View>
@@ -22,33 +70,41 @@ const SignUp = ({navigation}) => {
         />
         <View style={styles.container}>
           <View style={styles.photo}>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={addPhoto}>
               <View style={styles.borderPhoto}>
-                <View style={styles.photoContainer}>
-                  <Text style={styles.addPhoto}>Pilih Foto</Text>
-                </View>
+                {photo ? (
+                  <Image source={photo} style={styles.photoContainer} />
+                ) : (
+                  <View style={styles.photoContainer}>
+                    <Text style={styles.addPhoto}>Pilih Foto</Text>
+                  </View>
+                )}
               </View>
             </TouchableOpacity>
           </View>
           <TextInput
             label="Nama Lengkap"
             placeholder="Masukkan nama lengkap anda"
+            value={form.name}
+            onChangeText={value => setForm('name', value)}
           />
           <Gap height={16} />
-          <TextInput label="Email" placeholder="Masukkan email anda" />
+          <TextInput
+            label="Email"
+            placeholder="Masukkan email anda"
+            value={form.email}
+            onChangeText={value => setForm('email', value)}
+          />
           <Gap height={16} />
           <TextInput
             label="Kata Sandi"
             placeholder="Masukkan kata sandi anda"
             secureTextEntry
+            value={form.password}
+            onChangeText={value => setForm('password', value)}
           />
           <Gap height={24} />
-          <Button
-            text="Lanjutkan"
-            onPress={() => {
-              navigation.navigate('SignUpProfile');
-            }}
-          />
+          <Button text="Lanjutkan" onPress={onSubmit} />
         </View>
       </View>
     </ScrollView>

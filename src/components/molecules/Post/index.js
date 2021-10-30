@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Gap} from '../..';
 import {
   IcAnswer,
   IcDownvote,
@@ -8,8 +9,35 @@ import {
   IcVerified,
   ProfileDummy
 } from '../../../assets';
+import {formatedBadge} from '../../../utils';
 
-const Post = ({onPress, verify, answer}) => {
+const Post = ({
+  onPress,
+  imageQuestion,
+  verify,
+  answer,
+  title,
+  question,
+  date,
+  name,
+  badge,
+  totalAnswer,
+  image,
+  isQuestion,
+  isAnswer,
+  point,
+}) => {
+  var options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+  const formatedDate = new Date(date).toLocaleDateString('id-ID', options);
+
+  const countAnswer = () => {
+    return totalAnswer.length;
+  };
+
   return (
     <>
       {onPress ? (
@@ -17,37 +45,32 @@ const Post = ({onPress, verify, answer}) => {
           <View style={styles.container}>
             <View style={styles.headContainer}>
               <View style={styles.profileContainer}>
-                <Image source={ProfileDummy} style={styles.profile} />
+                <Image source={image} style={styles.profile} />
                 <View>
                   <Text style={styles.name} numberOfLines={1}>
-                    Alvina Vania
+                    {name}
                   </Text>
                   <View style={styles.dateContainer}>
-                    <Text style={styles.badge}>Super</Text>
+                    <Text style={styles.badge}>{formatedBadge(badge)}</Text>
                     <View style={styles.dot} />
-                    <Text style={styles.date}>11 April 2022</Text>
+                    <Text style={styles.date}>{formatedDate}</Text>
                   </View>
                 </View>
               </View>
-              {verify && (
+              {verify == '1' && (
                 <View style={styles.verifiedContainer}>
                   <IcVerified />
                   <Text style={styles.greenText}>Terverifikasi</Text>
                 </View>
               )}
             </View>
-            <Text style={styles.title}>
-              Apa benar vaksin sinovac mematikan?
-            </Text>
+            <Text style={styles.title}>{title}</Text>
             <Text numberOfLines={2} style={styles.subTitle}>
-              Kemarin saya mendengar percakapan tetangga saya tentang vaksin
-              sinovac lalu kemarin saya mendengar percakapan tetangga saya
-              tentang vaksin sinovac lalu...Kemarin saya mendengar percakapan
-              tetangga saya tentang
+              {question}
             </Text>
             <View style={styles.answerContainer}>
               <IcAnswer />
-              <Text style={styles.answerText}>3</Text>
+              <Text style={styles.answerText}>{countAnswer()}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -55,42 +78,53 @@ const Post = ({onPress, verify, answer}) => {
         <View style={styles.container}>
           <View style={styles.headContainer}>
             <View style={styles.profileContainer}>
-              <Image source={ProfileDummy} style={styles.profile} />
+              <Image source={image} style={styles.profile} />
               <View>
                 <Text style={styles.name} numberOfLines={1}>
-                  Alvina Vania
+                  {name}
                 </Text>
                 <View style={styles.dateContainer}>
-                  <Text style={styles.badge}>Super</Text>
+                  <Text style={styles.badge}>{formatedBadge(badge)}</Text>
                   <View style={styles.dot} />
-                  <Text style={styles.date}>11 April 2022</Text>
+                  <Text style={styles.date}>{formatedDate}</Text>
                 </View>
               </View>
             </View>
-            {verify && (
+            {verify == '1' && (
               <View style={styles.verifiedContainer}>
                 <IcVerified />
                 <Text style={styles.greenText}>Terverifikasi</Text>
               </View>
             )}
           </View>
-          <Text style={styles.title}>Apa benar vaksin sinovac mematikan?</Text>
-          <Text style={styles.subTitle}>
-            Kemarin saya mendengar percakapan tetangga saya tentang vaksin
-            sinovac lalu kemarin saya mendengar percakapan tetangga saya tentang
-            vaksin sinovac lalu...Kemarin saya mendengar percakapan tetangga
-            saya tentang
-          </Text>
-          {answer && (
-            <View style={styles.bottomContainer}>
-              <View style={styles.voteContainer}>
-                <IcUpvote />
-                <IcDownvote style={styles.vote} />
-                <Text style={styles.voteText}>12 vote poin</Text>
-              </View>
-              <View style={styles.voteContainer}>
-                <IcReply />
-                <Text style={styles.replyText}>Balas (1)</Text>
+
+          {isQuestion && (
+            <View>
+              <Text style={styles.title}>{title}</Text>
+              {imageQuestion != null ? (
+                <Image
+                  style={styles.imageQuestion}
+                  resizeMode="cover"
+                  source={{
+                    uri: 'https://i.ytimg.com/vi/46u1BNJarG8/maxresdefault.jpg'
+                  }}
+                />
+              ) : (
+                <></>
+              )}
+              <Text style={styles.subTitle}>{question}</Text>
+            </View>
+          )}
+          {isAnswer && (
+            <View>
+              <Gap height={14} />
+              <Text style={styles.subTitle}>{answer}</Text>
+              <View style={styles.bottomContainer}>
+                <View style={styles.voteContainer}>
+                  <IcUpvote />
+                  <IcDownvote style={styles.vote} />
+                  <Text style={styles.voteText}>{point} vote poin</Text>
+                </View>
               </View>
             </View>
           )}
@@ -105,13 +139,13 @@ export default Post;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingHorizontal: 24,
     paddingVertical: 18,
     marginBottom: 20
   },
   headContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginHorizontal: 24,
   },
   profileContainer: {
     flexDirection: 'row',
@@ -133,27 +167,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     color: 'black',
     paddingTop: 14,
+    marginHorizontal: 24
   },
   subTitle: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: 'black',
     paddingTop: 4,
+    marginHorizontal: 24
   },
   answerContainer: {
     marginTop: 12,
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginHorizontal: 24,
   },
   bottomContainer: {
     marginTop: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginHorizontal: 24,
   },
   voteContainer: {
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   answerText: {
     fontFamily: 'Poppins-Medium',
@@ -207,5 +245,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Light',
     color: '#1D2D8C',
     fontSize: 14
+  },
+  imageQuestion: {
+    marginVertical: 14,
+    width: '100%',
+    height: 200
   }
 });

@@ -1,8 +1,35 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {ProfileDummy} from '../../../assets';
+import {API_HOST} from '../../../config';
+import {getData} from '../../../utils';
 
 const HomeHeader = () => {
+  const [photo, setPhoto] = useState(ProfileDummy);
+  const [poin, setPoin] = useState('');
+
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      setPhoto({uri: res.profile_photo_url});
+      setPoin(res.poin);
+    });
+    // getData('token').then(res => {
+    //   axios
+    //     .get(`${API_HOST.url}/user`, {
+    //       headers: {
+    //         Authorization: res.value,
+    //       },
+    //     })
+    //     .then(res => {
+    //       setPoin(res.data.data.poin);
+    //     })
+    //     .catch(err => {
+    //       console.log('eror poin', err);
+    //     });
+    // });
+  }, []);
+
   return (
     <View style={styles.headContainer}>
       <View>
@@ -10,8 +37,8 @@ const HomeHeader = () => {
         <Text style={styles.subTitle}>Temukan jawabanmu!</Text>
       </View>
       <View style={styles.profileContainer}>
-        <Image source={ProfileDummy} style={styles.profile} />
-        <Text style={styles.exp}>10/100XP</Text>
+        <Image source={photo} style={styles.profile} />
+        <Text style={styles.exp}>{poin}/100XP</Text>
       </View>
     </View>
   );

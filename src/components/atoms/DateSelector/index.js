@@ -3,8 +3,7 @@ import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {IcCalendar} from '../../../assets';
 
-const DateSelector = ({label}) => {
-  const [date, setDate] = useState(new Date());
+const DateSelector = ({label, tanggal, onValueChange}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -13,9 +12,7 @@ const DateSelector = ({label}) => {
       <View style={styles.input}>
         <TouchableOpacity activeOpacity={0.7} onPress={() => setOpen(true)}>
           <View style={styles.form}>
-            <Text style={styles.text}>
-              {date.toDateString().split(' ').slice(1).join(' ')}
-            </Text>
+            <Text style={styles.text}>{tanggal.toLocaleDateString()}</Text>
             <IcCalendar />
           </View>
         </TouchableOpacity>
@@ -24,10 +21,10 @@ const DateSelector = ({label}) => {
         modal
         mode="date"
         open={open}
-        date={date}
-        onConfirm={date => {
+        date={tanggal}
+        onConfirm={itemValue => {
           setOpen(false);
-          setDate(date);
+          onValueChange(itemValue);
         }}
         onCancel={() => {
           setOpen(false);
@@ -45,12 +42,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
     color: '#020202',
-    marginTop: 2,
+    marginTop: 2
   },
   form: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  input: {borderWidth: 1, borderColor: '#020202', borderRadius: 8, padding: 13},
+  input: {borderWidth: 1, borderColor: '#020202', borderRadius: 8, padding: 13}
 });

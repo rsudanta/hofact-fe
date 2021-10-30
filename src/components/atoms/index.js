@@ -1,15 +1,15 @@
-import TextInput from './TextInput';
 import Button from './Button';
-import Gap from './Gap';
-import SelectCity from './SelectCity';
-import SelectGender from './SelectGender';
 import DateSelector from './DateSelector';
+import EmptyAnswer from './EmptyAnswer';
+import Gap from './Gap';
+import HeaderLogo from './HeaderLogo';
+import ImagePicker from './ImagePicker';
 import ProfileBadge from './ProfileBadge';
 import RoundButton from './RoundButton';
+import SelectCity from './SelectCity';
+import SelectGender from './SelectGender';
 import TextArea from './TextArea';
-import ImagePicker from './ImagePicker';
-import HeaderLogo from './HeaderLogo';
-import HeaderProfile from './HeaderProfile';
+import TextInput from './TextInput';
 
 export {
   TextInput,
@@ -22,5 +22,6 @@ export {
   RoundButton,
   TextArea,
   ImagePicker,
-  HeaderLogo
+  HeaderLogo,
+  EmptyAnswer
 };

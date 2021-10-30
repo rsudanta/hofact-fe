@@ -4,18 +4,18 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
-const ImagePicker = ({label, placeholder, ...restProps}) => {
+const ImagePicker = ({label, placeholder, onPress, ...restProps}) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity>
-        <View style={styles.input}>
+      <View style={styles.input}>
+        <TouchableOpacity onPress={onPress} style={{width: 80}}>
           <Text style={styles.add}>+</Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   add: {
     fontSize: 58,
     textAlign: 'center',
-    fontFamily: 'Poppins-Light',
-  },
+    fontFamily: 'Poppins-Light'
+  }
 });

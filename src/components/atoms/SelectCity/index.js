@@ -1,6 +1,6 @@
+import {Picker} from '@react-native-picker/picker';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
 
 const SelectCity = ({label, value, onSelectChange}) => {
   return (
@@ -25,5 +25,5 @@ export default SelectCity;
 
 const styles = StyleSheet.create({
   label: {fontSize: 14, fontFamily: 'Poppins-Regular', color: '#020202'},
-  input: {borderWidth: 1, borderColor: '#020202', borderRadius: 8, padding:0 },
+  input: {borderWidth: 1, borderColor: '#020202', borderRadius: 8, padding: 0},
 });

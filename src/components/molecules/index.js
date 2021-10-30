@@ -5,6 +5,7 @@ import BottomNavigator from './BottomNavigator';
 import ProfileHeader from './ProfileHeader';
 import Progress from './Progress';
 import History from './History';
+import Loading from './Loading';
 
 export {
   Header,
@@ -13,5 +14,6 @@ export {
   BottomNavigator,
   ProfileHeader,
   Progress,
-  History
+  History,
+  Loading,
 };

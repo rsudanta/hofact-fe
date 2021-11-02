@@ -3,6 +3,7 @@ import {registerReducer, photoReducer} from './auth';
 import {globalReducer} from './global';
 import {homeReducer} from './home';
 import {profileReducer} from './profile';
+import {detailReducer} from './detail';
 
 const reducer = combineReducers({
   registerReducer,
@@ -10,6 +11,7 @@ const reducer = combineReducers({
   photoReducer,
   homeReducer,
   profileReducer,
+  detailReducer,
 });
 
 export default reducer;

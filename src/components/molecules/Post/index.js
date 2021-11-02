@@ -4,10 +4,12 @@ import {Gap} from '../..';
 import {
   IcAnswer,
   IcDownvote,
+  IcDownvoteOn,
   IcReply,
   IcUpvote,
+  IcUpvoteOn,
   IcVerified,
-  ProfileDummy
+  ProfileDummy,
 } from '../../../assets';
 import {formatedBadge} from '../../../utils';
 
@@ -26,11 +28,14 @@ const Post = ({
   isQuestion,
   isAnswer,
   point,
+  onUpvote,
+  onDownvote,
+  hasVote
 }) => {
   var options = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   };
   const formatedDate = new Date(date).toLocaleDateString('id-ID', options);
 
@@ -106,7 +111,7 @@ const Post = ({
                   style={styles.imageQuestion}
                   resizeMode="cover"
                   source={{
-                    uri: 'https://i.ytimg.com/vi/46u1BNJarG8/maxresdefault.jpg'
+                    uri: 'https://i.ytimg.com/vi/46u1BNJarG8/maxresdefault.jpg',
                   }}
                 />
               ) : (
@@ -121,8 +126,16 @@ const Post = ({
               <Text style={styles.subTitle}>{answer}</Text>
               <View style={styles.bottomContainer}>
                 <View style={styles.voteContainer}>
-                  <IcUpvote />
-                  <IcDownvote style={styles.vote} />
+                  <TouchableOpacity onPress={onUpvote}>
+                    {hasVote === 'UPVOTE' ? <IcUpvoteOn /> : <IcUpvote />}
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={onDownvote}>
+                    {hasVote === 'DOWNVOTE' ? (
+                      <IcDownvoteOn style={styles.vote} />
+                    ) : (
+                      <IcDownvote style={styles.vote} />
+                    )}
+                  </TouchableOpacity>
                   <Text style={styles.voteText}>{point} vote poin</Text>
                 </View>
               </View>
@@ -140,115 +153,115 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     paddingVertical: 18,
-    marginBottom: 20
+    marginBottom: 20,
   },
   headContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 24,
+    marginHorizontal: 24
   },
   profileContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   verifiedContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   greenText: {
     color: '#1AAE9F',
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    marginLeft: 3
+    marginLeft: 3,
   },
   title: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
     color: 'black',
     paddingTop: 14,
-    marginHorizontal: 24
+    marginHorizontal: 24,
   },
   subTitle: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: 'black',
     paddingTop: 4,
-    marginHorizontal: 24
+    marginHorizontal: 24,
   },
   answerContainer: {
     marginTop: 12,
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 24,
+    marginHorizontal: 24
   },
   bottomContainer: {
     marginTop: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 24,
+    marginHorizontal: 24
   },
   voteContainer: {
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   answerText: {
     fontFamily: 'Poppins-Medium',
     marginLeft: 6,
-    color: '#8F9AD8',
+    color: '#8F9AD8'
   },
   profile: {
     borderRadius: 50,
     width: 40,
     height: 40,
-    marginRight: 8,
+    marginRight: 8
   },
   dateContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   name: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
     color: 'black',
-    width: 180
+    width: 180,
   },
   badge: {
     fontFamily: 'Poppins-Light',
     color: 'black',
-    fontSize: 14
+    fontSize: 14,
   },
   dot: {
     width: 3,
     height: 3,
     borderRadius: 3,
     backgroundColor: '#8D8B8B',
-    marginHorizontal: 6
+    marginHorizontal: 6,
   },
   date: {
     fontFamily: 'Poppins-Light',
     color: '#8D8B8B',
-    fontSize: 13
+    fontSize: 13,
   },
   vote: {
-    marginLeft: 12,
+    marginLeft: 12
   },
   voteText: {
     marginLeft: 12,
     fontFamily: 'Poppins-Light',
     color: '#8D8B8B',
-    fontSize: 12
+    fontSize: 12,
   },
   replyText: {
     marginLeft: 8,
     fontFamily: 'Poppins-Light',
     color: '#1D2D8C',
-    fontSize: 14
+    fontSize: 14,
   },
   imageQuestion: {
     marginVertical: 14,
     width: '100%',
-    height: 200
-  }
+    height: 200,
+  },
 });

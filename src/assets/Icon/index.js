@@ -18,6 +18,8 @@ import IcExp from './ic_exp.svg';
 import IcBadge from './ic_badge.svg';
 import IcAnswerProgress from './ic_ans.svg';
 import IcAsk from './ic_ask.svg';
+import IcUpvoteOn from './ic_upvote_on.svg';
+import IcDownvoteOn from './ic_downvote_on.svg';
 
 export {
   IcBack,
@@ -40,4 +42,6 @@ export {
   IcBadge,
   IcAnswerProgress,
   IcAsk,
+  IcDownvoteOn,
+  IcUpvoteOn,
 };

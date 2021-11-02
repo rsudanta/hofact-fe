@@ -30,7 +30,8 @@ const Post = ({
   point,
   onUpvote,
   onDownvote,
-  hasVote
+  hasVote,
+  voteAuth
 }) => {
   var options = {
     year: 'numeric',
@@ -50,7 +51,7 @@ const Post = ({
           <View style={styles.container}>
             <View style={styles.headContainer}>
               <View style={styles.profileContainer}>
-                <Image source={image} style={styles.profile} />
+                <Image source={{uri: image}} style={styles.profile} />
                 <View>
                   <Text style={styles.name} numberOfLines={1}>
                     {name}
@@ -83,7 +84,7 @@ const Post = ({
         <View style={styles.container}>
           <View style={styles.headContainer}>
             <View style={styles.profileContainer}>
-              <Image source={image} style={styles.profile} />
+              <Image source={{uri: image}} style={styles.profile} />
               <View>
                 <Text style={styles.name} numberOfLines={1}>
                   {name}
@@ -111,7 +112,7 @@ const Post = ({
                   style={styles.imageQuestion}
                   resizeMode="cover"
                   source={{
-                    uri: 'https://i.ytimg.com/vi/46u1BNJarG8/maxresdefault.jpg',
+                    uri: `https://hofact.masuk.id/storage/public/${imageQuestion}`,
                   }}
                 />
               ) : (
@@ -126,16 +127,21 @@ const Post = ({
               <Text style={styles.subTitle}>{answer}</Text>
               <View style={styles.bottomContainer}>
                 <View style={styles.voteContainer}>
-                  <TouchableOpacity onPress={onUpvote}>
-                    {hasVote === 'UPVOTE' ? <IcUpvoteOn /> : <IcUpvote />}
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={onDownvote}>
-                    {hasVote === 'DOWNVOTE' ? (
-                      <IcDownvoteOn style={styles.vote} />
-                    ) : (
-                      <IcDownvote style={styles.vote} />
-                    )}
-                  </TouchableOpacity>
+                  {voteAuth == false ? (
+                    <>
+                      <TouchableOpacity onPress={onUpvote}>
+                        {hasVote === 'UPVOTE' ? <IcUpvoteOn /> : <IcUpvote />}
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={onDownvote}>
+                        {hasVote === 'DOWNVOTE' ? (
+                          <IcDownvoteOn style={styles.vote} />
+                        ) : (
+                          <IcDownvote style={styles.vote} />
+                        )}
+                      </TouchableOpacity>
+                    </>
+                  ) : null}
+
                   <Text style={styles.voteText}>{point} vote poin</Text>
                 </View>
               </View>
@@ -245,10 +251,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   vote: {
-    marginLeft: 12
+    marginLeft: 12,
+    marginRight: 12
   },
   voteText: {
-    marginLeft: 12,
     fontFamily: 'Poppins-Light',
     color: '#8D8B8B',
     fontSize: 12,

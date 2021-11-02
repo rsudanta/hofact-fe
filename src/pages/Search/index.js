@@ -52,7 +52,11 @@ const Search = ({navigation}) => {
               verify={itemData.is_terverifikasi}
               date={itemData.created_at}
               totalAnswer={itemData.isi_jawaban}
-              image={{uri: itemData.user.profile_photo_url}}
+              image={
+                itemData.user.photo_path == null
+                  ? itemData.user.profile_photo_url
+                  : `https://hofact.masuk.id/storage/public/${itemData.user.photo_path}`
+              }
               comment
               onPress={() => {
                 navigation.navigate('DetailPost', itemData);
@@ -71,13 +75,13 @@ export default Search;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF'
   },
   container: {
     backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingTop: 30,
-    paddingBottom: 24
+    paddingBottom: 24,
   },
-  title: {fontFamily: 'Poppins-Medium', fontSize: 22, color: '#020202'}
+  title: {fontFamily: 'Poppins-Medium', fontSize: 22, color: '#020202'},
 });

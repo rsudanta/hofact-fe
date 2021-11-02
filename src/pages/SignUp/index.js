@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
 import {useSelector, useDispatch} from 'react-redux';
@@ -16,7 +16,7 @@ const SignUp = ({navigation}) => {
   const [form, setForm] = useForm({
     name: '',
     email: '',
-    password: '',
+    password: ''
   });
 
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const SignUp = ({navigation}) => {
       {
         quality: 0.7,
         maxWidth: 200,
-        maxHeight: 200
+        maxHeight: 200,
       },
       res => {
         console.log('Response photo = ', res);
@@ -36,11 +36,13 @@ const SignUp = ({navigation}) => {
         if (res.didCancel || res.error) {
           showMessage('Anda tidak memilih foto');
         } else {
-          const source = {uri: res.assets[0].uri};
+          const source = {
+            uri: res.assets[0].uri
+          };
           const dataImage = {
             uri: res.assets[0].uri,
             type: res.assets[0].type,
-            name: res.assets[0].fileName,
+            name: res.assets[0].fileName
           };
 
           setPhoto(source);
@@ -119,14 +121,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1,
+    flex: 1
   },
   page: {flex: 1, backgroundColor: 'white'},
   addPhoto: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: '#8D92A3',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   photoContainer: {
     width: 90,
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#F0F0F0',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   borderPhoto: {
     borderWidth: 1,
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 110,
     borderStyle: 'dashed',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  photo: {alignItems: 'center', marginBottom: 16},
+  photo: {alignItems: 'center', marginBottom: 16}
 });

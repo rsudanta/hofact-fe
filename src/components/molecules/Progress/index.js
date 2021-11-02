@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Gap} from '../..';
 import {
   IcAnswer,
@@ -8,8 +10,16 @@ import {
   IcBadge,
   IcExp,
 } from '../../../assets';
+import {getProfileData, getUserPostData} from '../../../redux/action';
+import {formatedBadge} from '../../../utils';
 
 const Progress = () => {
+  const {profile, postUser, answerUser} = useSelector(
+    state => state.profileReducer
+  );
+
+  console.log('answeruser', answerUser);
+
   return (
     <View style={styles.page}>
       <View style={styles.statisticContainer}>
@@ -18,14 +28,16 @@ const Progress = () => {
           <View style={styles.card}>
             <View style={styles.textContainer}>
               <IcExp />
-              <Text style={styles.primaryText}>100 XP</Text>
+              <Text style={styles.primaryText}>{profile.poin} XP</Text>
             </View>
             <Text style={styles.secondaryText}>Total Poin</Text>
           </View>
           <View style={styles.card}>
             <View style={styles.textContainer}>
               <IcBadge />
-              <Text style={styles.primaryText}>Pemula</Text>
+              <Text style={styles.primaryText}>
+                {formatedBadge(profile.poin)}
+              </Text>
             </View>
             <Text style={styles.secondaryText}>Gelar</Text>
           </View>
@@ -35,14 +47,14 @@ const Progress = () => {
           <View style={styles.card}>
             <View style={styles.textContainer}>
               <IcAsk />
-              <Text style={styles.primaryText}>10</Text>
+              <Text style={styles.primaryText}>{postUser.length}</Text>
             </View>
             <Text style={styles.secondaryText}>Total Pertanyaan</Text>
           </View>
           <View style={styles.card}>
             <View style={styles.textContainer}>
               <IcAnswerProgress />
-              <Text style={styles.primaryText}>20</Text>
+              <Text style={styles.primaryText}>{answerUser.length}</Text>
             </View>
             <Text style={styles.secondaryText}>Total Jawaban</Text>
           </View>

@@ -1,35 +1,7 @@
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {ProfileDummy} from '../../../assets';
-import {API_HOST} from '../../../config';
-import {getData} from '../../../utils';
 
-const HomeHeader = () => {
-  const [photo, setPhoto] = useState(ProfileDummy);
-  const [poin, setPoin] = useState('');
-
-  useEffect(() => {
-    getData('userProfile').then(res => {
-      setPhoto({uri: res.profile_photo_url});
-      setPoin(res.poin);
-    });
-    // getData('token').then(res => {
-    //   axios
-    //     .get(`${API_HOST.url}/user`, {
-    //       headers: {
-    //         Authorization: res.value,
-    //       },
-    //     })
-    //     .then(res => {
-    //       setPoin(res.data.data.poin);
-    //     })
-    //     .catch(err => {
-    //       console.log('eror poin', err);
-    //     });
-    // });
-  }, []);
-
+const HomeHeader = ({image, poin}) => {
   return (
     <View style={styles.headContainer}>
       <View>
@@ -37,7 +9,7 @@ const HomeHeader = () => {
         <Text style={styles.subTitle}>Temukan jawabanmu!</Text>
       </View>
       <View style={styles.profileContainer}>
-        <Image source={photo} style={styles.profile} />
+        <Image source={{uri: image}} style={styles.profile} />
         <Text style={styles.exp}>{poin}/100XP</Text>
       </View>
     </View>
@@ -54,17 +26,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 32,
     paddingBottom: 24,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   profileContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   exp: {
     fontSize: 12,
     fontFamily: 'Poppins-Light',
     paddingTop: 7,
-    color: 'black'
+    color: 'black',
   },
   appName: {fontSize: 22, fontFamily: 'Poppins-Medium', color: '#020202'},
-  subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'}
+  subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'},
 });

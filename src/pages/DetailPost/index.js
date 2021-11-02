@@ -4,7 +4,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, EmptyAnswer, Gap, HeaderLogo, Post} from '../../components';
 import {API_HOST} from '../../config';
-import {getAnswerData} from '../../redux/action/detail';
+import {getAnswerData, getVoteData} from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
 const DetailPost = ({navigation, route}) => {
@@ -16,52 +16,36 @@ const DetailPost = ({navigation, route}) => {
     created_at,
     isi_jawaban,
     jawaban,
-    gambar_url
+    gambar_url,
   } = route.params);
 
-  const [listJawaban, setListJawaban] = useState([]);
   const [authID, setAuthID] = useState('');
-  const [vote, setVote] = useState(false);
+  const [voting, setVoting] = useState('');
   const [token, setToken] = useState('');
-  const [listVote, setListVote] = useState([]);
-  const {answer} = useSelector(state => state.detailReducer);
+  const {answer, vote} = useSelector(state => state.detailReducer);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     getData('userProfile').then(resProfile => {
       setAuthID(resProfile.id);
-      getData('token').then(resToken => {
-        setToken(resToken.value);
-        axios
-          .get(`${API_HOST.url}/vote/${resProfile.id}`, {
-            headers: {
-              Authorization: resToken.value
-            }
-          })
-          .then(resVote => {
-            console.log('success', resVote.data.data);
-            setListVote(resVote.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      });
     });
-
+    getData('token').then(resToken => {
+      setToken(resToken.value);
+    });
+    dispatch(getVoteData());
     dispatch(getAnswerData(item.id));
-  }, [vote]);
+  }, [voting]);
 
   const onUpvote = idJawaban => {
     axios
       .post(`${API_HOST.url}/upvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token
-        }
+          Authorization: token,
+        },
       })
-      .then(resUpvote => {
-        console.log('succes upvote', resUpvote.data.data.status);
-        setVote(resUpvote.data.data.id);
+      .then(res => {
+        setVoting(res.data.data.id);
       })
       .catch(err => {
         showMessage('Anda sudah memberikan upvote');
@@ -69,26 +53,22 @@ const DetailPost = ({navigation, route}) => {
   };
 
   const onDownvote = idJawaban => {
-    getData('token').then(res => {
-      axios
-        .post(`${API_HOST.url}/downvote/${idJawaban}`, null, {
-          headers: {
-            Authorization: res.value
-          }
-        })
-        .then(resUpvote => {
-          console.log('succes downvote', resUpvote.data.data.status);
-          setVote(resUpvote.data.data.id);
-        })
-        .catch(err => {
-          showMessage('Anda sudah memberikan downvote');
-        });
-    });
+    axios
+      .post(`${API_HOST.url}/downvote/${idJawaban}`, null, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(res => {
+        setVoting(res.data.data.id);
+      })
+      .catch(err => {
+        showMessage('Anda sudah memberikan downvote');
+      });
   };
 
   const finding = item => {
-    var result = listVote.find(({id_jawaban}) => id_jawaban === item);
-    // console.log('res', result.status);
+    var result = vote.find(({id_jawaban}) => id_jawaban == item);
     return result;
   };
 
@@ -103,7 +83,11 @@ const DetailPost = ({navigation, route}) => {
         <Post
           detailPost
           isQuestion
-          image={{uri: item.user.profile_photo_url}}
+          image={
+            item.user.photo_path == null
+              ? item.user.profile_photo_url
+              : `https://hofact.masuk.id/storage/public/${item.user.photo_path}`
+          }
           name={item.user.name}
           badge={item.user.poin}
           title={item.judul_pertanyaan}
@@ -120,9 +104,14 @@ const DetailPost = ({navigation, route}) => {
                   detailPost
                   verify={itemJawaban.is_terverifikasi}
                   name={itemJawaban.user.name}
-                  image={{uri: itemJawaban.user.profile_photo_url}}
+                  image={
+                    itemJawaban.user.photo_path == null
+                      ? itemJawaban.user.profile_photo_url
+                      : `https://hofact.masuk.id/storage/public/${itemJawaban.user.photo_path}`
+                  }
                   badge={itemJawaban.user.poin}
                   isAnswer
+                  voteAuth={authID == itemJawaban.user.id ? true : false}
                   date={itemJawaban.created_at}
                   point={itemJawaban.total_vote}
                   key={itemJawaban.id}
@@ -158,25 +147,25 @@ export default DetailPost;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F5F7FF',
+    backgroundColor: '#F5F7FF'
   },
   container: {
     paddingHorizontal: 24,
     paddingVertical: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   jawaban: {
     paddingLeft: 24,
     paddingBottom: 20,
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: 'black',
+    color: 'black'
   },
   button: {
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderTopWidth: 0.5,
     borderColor: '#C4C4C4',
-    color: 'white',
-  },
+    color: 'white'
+  }
 });

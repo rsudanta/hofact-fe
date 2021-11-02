@@ -1,18 +1,19 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ProfileDummy} from '../../../assets';
+import {formatedBadge} from '../../../utils';
 
-const ProfileHeader = () => {
+const ProfileHeader = ({image, name, badge}) => {
   return (
     <View style={styles.container}>
       <View style={styles.center}>
         <TouchableOpacity onPress={() => {}}>
           <View style={styles.borderPhoto}>
-            <Image source={ProfileDummy} style={styles.photoContainer} />
+            <Image source={{uri: image}} style={styles.photoContainer} />
           </View>
         </TouchableOpacity>
-        <Text style={styles.name}>Alvina Vania</Text>
-        <Text style={styles.badge}>Pemula</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.badge}>{formatedBadge(badge)}</Text>
       </View>
     </View>
   );

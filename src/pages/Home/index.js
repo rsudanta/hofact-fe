@@ -9,7 +9,7 @@ import {
   RoundButton
 } from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {getPostData, setLoading} from '../../redux/action';
+import {getPostData, getProfileData, setLoading} from '../../redux/action';
 import {useFocusEffect} from '@react-navigation/native';
 
 const Home = ({navigation}) => {
@@ -17,19 +17,19 @@ const Home = ({navigation}) => {
   useScrollToTop(ref);
   const dispatch = useDispatch();
   const {post} = useSelector(state => state.homeReducer);
+  const {profile} = useSelector(state => state.profileReducer);
   const {refreshing} = useSelector(state => state.globalReducer);
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getPostData());
+      dispatch(getProfileData());
     }, [])
   );
-  // useEffect(() => {
-  //   dispatch(getPostData());
-  // },[]);
 
   const onRefresh = React.useCallback(() => {
     dispatch(getPostData());
+    dispatch(getProfileData());
   }, []);
 
   return (
@@ -41,7 +41,16 @@ const Home = ({navigation}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <HomeHeader title="Beranda" subTitle="Temukan jawabanmu!" />
+        <HomeHeader
+          title="Beranda"
+          subTitle="Temukan jawabanmu!"
+          poin={profile.poin}
+          image={
+            profile.photo_path == null
+              ? profile.profile_photo_url
+              : `https://hofact.masuk.id/storage/public/${profile.photo_path}`
+          }
+        />
         <View style={styles.page}>
           <Gap height={20} />
           {post.length == 0 ? (
@@ -58,7 +67,11 @@ const Home = ({navigation}) => {
                   verify={itemPost.is_terverifikasi}
                   date={itemPost.created_at}
                   totalAnswer={itemPost.isi_jawaban}
-                  image={{uri: itemPost.user.profile_photo_url}}
+                  image={
+                    itemPost.user.photo_path == null
+                      ? itemPost.user.profile_photo_url
+                      : `https://hofact.masuk.id/storage/public/${itemPost.user.photo_path}`
+                  }
                   comment
                   onPress={() => {
                     navigation.navigate('DetailPost', itemPost);

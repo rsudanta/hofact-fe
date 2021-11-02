@@ -11,7 +11,7 @@ export const getPostData = () => dispatch => {
       dispatch(setRefreshing(false));
     })
     .catch(err => {
-      console.log('err: ', err);
+      console.log('err get post: ', err);
       dispatch(setRefreshing(false));
     });
 };

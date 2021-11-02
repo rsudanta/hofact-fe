@@ -1,9 +1,16 @@
+import {useFocusEffect} from '@react-navigation/core';
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {HScrollView} from 'react-native-head-tab-view';
 import {SceneMap, TabBar} from 'react-native-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
+import {useDispatch, useSelector} from 'react-redux';
 import {History, ProfileHeader, Progress} from '../../components';
+import {
+  getProfileData,
+  getUserAnswerData,
+  getUserPostData,
+} from '../../redux/action';
 
 const renderTabBar = props => (
   <TabBar
@@ -14,7 +21,7 @@ const renderTabBar = props => (
       shadowOpacity: 0,
       elevation: 0,
       borderBottomColor: '#F2F2F2',
-      borderBottomWidth: 1
+      borderBottomWidth: 1,
     }}
     tabStyle={{width: 'auto'}}
     renderLabel={({route, focused, color}) => (
@@ -22,7 +29,7 @@ const renderTabBar = props => (
         style={{
           fontSize: 14,
           fontFamily: 'Poppins-Medium',
-          color: focused ? '#1D2D8C' : '#8F9AD8'
+          color: focused ? '#1D2D8C' : '#8F9AD8',
         }}>
         {route.title}
       </Text>
@@ -61,24 +68,45 @@ const Peringkat = () => (
 const initialLayout = {width: Dimensions.get('window').width};
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const {profile} = useSelector(state => state.profileReducer);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getProfileData());
+      dispatch(getUserPostData());
+      dispatch(getUserAnswerData());
+    }, [])
+  );
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Kemajuan'},
     {key: 'second', title: 'Pertanyaan'},
     {key: 'third', title: 'Jawaban'},
-    {key: 'fourth', title: 'Peringkat'}
+    {key: 'fourth', title: 'Peringkat'},
   ]);
 
   const renderScene = SceneMap({
     first: Kemajuan,
     second: Pertanyaan,
     third: Jawaban,
-    fourth: Peringkat
+    fourth: Peringkat,
   });
 
   return (
     <CollapsibleHeaderTabView
-      renderScrollHeader={() => <ProfileHeader />}
+      renderScrollHeader={() => (
+        <ProfileHeader
+          image={
+            profile.photo_path == null
+              ? profile.profile_photo_url
+              : `https://hofact.masuk.id/storage/public/${profile.photo_path}`
+          }
+          name={profile.name}
+          badge={profile.poin}
+        />
+      )}
       navigationState={{index, routes}}
       renderScene={renderScene}
       onIndexChange={setIndex}
@@ -93,6 +121,6 @@ export default Profile;
 const styles = StyleSheet.create({
   scene: {
     flex: 1,
-    backgroundColor: 'white',
-  }
+    backgroundColor: 'white'
+  },
 });

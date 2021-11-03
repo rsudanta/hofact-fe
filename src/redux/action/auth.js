@@ -18,14 +18,16 @@ export const signUpAction = (data, photoReducer, navigation) => dispatch => {
           .post(`${API_HOST.url}/user/photo`, dataPhoto, {
             headers: {
               Authorization: token,
-              'Content-Type': 'multipart/form-data'
-            },
+              'Content-Type': 'multipart/form-data',
+            }
           })
           .then(resUpload => {
             console.log('photo_url', resUpload.data.data[0]);
             profile.profile_photo_url = `https://hofact.masuk.id/storage/public/${resUpload.data.data[0]}`;
             storeData('userProfile', profile);
             navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+            dispatch({type: 'SET_PHOTO', value: ''});
+            dispatch({type: 'SET_UPLOAD_STATUS', value: false});
           })
           .catch(err => {
             showMessage('Upload foto tidak berhasil');

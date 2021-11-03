@@ -4,8 +4,9 @@ import Post from './Post';
 import BottomNavigator from './BottomNavigator';
 import ProfileHeader from './ProfileHeader';
 import Progress from './Progress';
-import History from './History';
+import QuestionHistory from './QuestionHistory';
 import Loading from './Loading';
+import AnswerHistory from './AnswerHistory';
 
 export {
   Header,
@@ -14,6 +15,7 @@ export {
   BottomNavigator,
   ProfileHeader,
   Progress,
-  History,
+  QuestionHistory,
   Loading,
+  AnswerHistory,
 };

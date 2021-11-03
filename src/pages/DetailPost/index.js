@@ -16,7 +16,7 @@ const DetailPost = ({navigation, route}) => {
     created_at,
     isi_jawaban,
     jawaban,
-    gambar_url,
+    gambar_url
   } = route.params);
 
   const [authID, setAuthID] = useState('');
@@ -41,8 +41,8 @@ const DetailPost = ({navigation, route}) => {
     axios
       .post(`${API_HOST.url}/upvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       })
       .then(res => {
         setVoting(res.data.data.id);
@@ -56,8 +56,8 @@ const DetailPost = ({navigation, route}) => {
     axios
       .post(`${API_HOST.url}/downvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       })
       .then(res => {
         setVoting(res.data.data.id);
@@ -147,25 +147,25 @@ export default DetailPost;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F5F7FF'
+    backgroundColor: '#F5F7FF',
   },
   container: {
     paddingHorizontal: 24,
     paddingVertical: 20,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   jawaban: {
     paddingLeft: 24,
     paddingBottom: 20,
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: 'black'
+    color: 'black',
   },
   button: {
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderTopWidth: 0.5,
     borderColor: '#C4C4C4',
-    color: 'white'
-  }
+    color: 'white',
+  },
 });

@@ -41,6 +41,7 @@ export const signUpAction = (data, photoReducer, navigation) => dispatch => {
     })
     .catch(err => {
       dispatch(setLoading(false));
+      console.log('error signup', err);
       showMessage(err?.response?.data?.meta?.message);
     });
 };

@@ -7,6 +7,7 @@ import Progress from './Progress';
 import QuestionHistory from './QuestionHistory';
 import Loading from './Loading';
 import AnswerHistory from './AnswerHistory';
+import Badge from './Badge';
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   QuestionHistory,
   Loading,
   AnswerHistory,
+  Badge,
 };

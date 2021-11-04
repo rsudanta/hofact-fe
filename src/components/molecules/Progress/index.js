@@ -1,16 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
+import {Badge} from '..';
 import {Gap} from '../..';
-import {
-  IcAnswer,
-  IcAnswerProgress,
-  IcAsk,
-  IcBadge,
-  IcExp
-} from '../../../assets';
-import {getProfileData, getUserPostData} from '../../../redux/action';
+import {IcAnswerProgress, IcAsk, IcBadge, IcExp} from '../../../assets';
 import {formatedBadge} from '../../../utils';
 
 const Progress = () => {
@@ -60,6 +53,7 @@ const Progress = () => {
       </View>
       <View style={styles.achievementContainer}>
         <Text style={styles.title}>Pencapaian</Text>
+        <Badge poin={profile.poin} />
       </View>
     </View>
   );
@@ -70,20 +64,20 @@ export default Progress;
 const styles = StyleSheet.create({
   page: {
     backgroundColor: 'white',
-    flex: 1
+    flex: 1,
   },
   statisticContainer: {
     paddingVertical: 24,
-    paddingHorizontal: 17,
+    paddingHorizontal: 17
   },
   achievementContainer: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 24
   },
   title: {
     fontFamily: 'Poppins-Medium',
     fontSize: 18,
     color: 'black',
-    paddingHorizontal: 7
+    paddingHorizontal: 7,
   },
   card: {
     marginTop: 6,
@@ -94,26 +88,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginHorizontal: 7,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   cardContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   textContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   primaryText: {
     color: '#1D2D8C',
     fontFamily: 'Poppins-Medium',
     fontSize: 14,
-    paddingLeft: 8,
+    paddingLeft: 8
   },
   secondaryText: {
     color: '#8F9AD8',
     fontFamily: 'Poppins-Medium',
     fontSize: 10,
-    paddingLeft: 22,
-  }
+    paddingLeft: 22
+  },
 });

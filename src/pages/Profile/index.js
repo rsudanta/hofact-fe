@@ -1,5 +1,5 @@
 import {useFocusEffect} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {HScrollView} from 'react-native-head-tab-view';
 import {SceneMap, TabBar} from 'react-native-tab-view';
@@ -7,7 +7,6 @@ import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header
 import {useDispatch, useSelector} from 'react-redux';
 import {
   AnswerHistory,
-  History,
   ProfileHeader,
   Progress,
   QuestionHistory,
@@ -15,7 +14,7 @@ import {
 import {
   getProfileData,
   getUserAnswerData,
-  getUserPostData
+  getUserPostData,
 } from '../../redux/action';
 
 const renderTabBar = props => (
@@ -27,7 +26,7 @@ const renderTabBar = props => (
       shadowOpacity: 0,
       elevation: 0,
       borderBottomColor: '#C4C4C4',
-      borderBottomWidth: 1
+      borderBottomWidth: 1,
     }}
     tabStyle={{width: 'auto'}}
     renderLabel={({route, focused, color}) => (
@@ -35,7 +34,7 @@ const renderTabBar = props => (
         style={{
           fontSize: 14,
           fontFamily: 'Poppins-Medium',
-          color: focused ? '#1D2D8C' : '#8F9AD8'
+          color: focused ? '#1D2D8C' : '#8F9AD8',
         }}>
         {route.title}
       </Text>
@@ -88,14 +87,14 @@ const Profile = () => {
     {key: 'first', title: 'Kemajuan'},
     {key: 'second', title: 'Pertanyaan'},
     {key: 'third', title: 'Jawaban'},
-    {key: 'fourth', title: 'Peringkat'}
+    {key: 'fourth', title: 'Peringkat'},
   ]);
 
   const renderScene = SceneMap({
     first: Kemajuan,
     second: Pertanyaan,
     third: Jawaban,
-    fourth: Peringkat
+    fourth: Peringkat,
   });
 
   return (
@@ -125,6 +124,6 @@ export default Profile;
 const styles = StyleSheet.create({
   scene: {
     flex: 1,
-    backgroundColor: 'white',
-  }
+    backgroundColor: 'white'
+  },
 });

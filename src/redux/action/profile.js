@@ -44,3 +44,23 @@ export const getUserAnswerData = () => dispatch => {
       });
   });
 };
+
+export const getLeaderboardData = () => dispatch => {
+  getData('token').then(res => {
+    axios
+      .get(`${API_HOST.url}/user/leaderboard`, {
+        headers: {
+          Authorization: res.value
+        }
+      })
+      .then(resLeaderboard => {
+        dispatch({
+          type: 'SET_LEADERBOARD',
+          value: resLeaderboard.data.data,
+        });
+      })
+      .catch(err => {
+        console.log('err get leaderboard: ', err);
+      });
+  });
+};

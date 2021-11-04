@@ -10,8 +10,10 @@ import {
   ProfileHeader,
   Progress,
   QuestionHistory,
+  Leaderboard,
 } from '../../components';
 import {
+  getLeaderboardData,
   getProfileData,
   getUserAnswerData,
   getUserPostData,
@@ -64,7 +66,7 @@ const Jawaban = () => (
 );
 const Peringkat = () => (
   <HScrollView index={3}>
-    <View style={[styles.scene, {backgroundColor: '#673ab7'}]} />
+    <Leaderboard />
   </HScrollView>
 );
 
@@ -79,6 +81,7 @@ const Profile = () => {
       dispatch(getProfileData());
       dispatch(getUserPostData());
       dispatch(getUserAnswerData());
+      dispatch(getLeaderboardData());
     }, [])
   );
 

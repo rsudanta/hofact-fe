@@ -7,6 +7,7 @@ import Search from './Search';
 import Profile from './Profile';
 import FormQuestion from './FormQuestion';
 import DetailPost from './DetailPost';
+import FormAnswer from './FormAnswer';
 
 export {
   SplashScreen,
@@ -18,4 +19,5 @@ export {
   Profile,
   FormQuestion,
   DetailPost,
+  FormAnswer
 };

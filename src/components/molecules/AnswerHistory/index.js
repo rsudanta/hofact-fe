@@ -19,7 +19,7 @@ const AnswerHistory = () => {
   const formatedDate = date => {
     return new Date(date).toLocaleDateString('id-ID', options);
   };
-  const finding = item => {
+  const findQuestion = item => {
     var result = post.find(({id}) => id == item);
     return result;
   };
@@ -33,11 +33,13 @@ const AnswerHistory = () => {
             onPress={() => {
               navigation.navigate(
                 'DetailPost',
-                finding(itemAnswer.id_pertanyaan)
+                findQuestion(itemAnswer.id_pertanyaan)
               );
             }}>
             <Gap height={12} />
-            <Text style={styles.text}>{itemAnswer.isi_jawaban}</Text>
+            <Text style={styles.text} numberOfLines={2}>
+              {itemAnswer.isi_jawaban}
+            </Text>
             <View style={styles.bottomContainer}>
               <Text style={styles.totalVote}>
                 {itemAnswer.total_vote} vote poin

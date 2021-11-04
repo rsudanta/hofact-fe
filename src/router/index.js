@@ -5,6 +5,7 @@ import {BottomNavigator} from '../components';
 import HeaderProfile from '../components/atoms/HeaderProfile';
 import {
   DetailPost,
+  FormAnswer,
   FormQuestion,
   Home,
   Profile,
@@ -12,7 +13,7 @@ import {
   SignIn,
   SignUp,
   SignUpProfile,
-  SplashScreen,
+  SplashScreen
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -31,7 +32,7 @@ const MainApp = () => {
         name="Profile"
         component={Profile}
         options={{
-          header: () => <HeaderProfile />
+          header: () => <HeaderProfile />,
         }}
       />
     </Tab.Navigator>
@@ -74,6 +75,11 @@ const Router = () => {
       <Stack.Screen
         name="DetailPost"
         component={DetailPost}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FormAnswer"
+        component={FormAnswer}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -20,6 +20,9 @@ import IcAnswerProgress from './ic_ans.svg';
 import IcAsk from './ic_ask.svg';
 import IcUpvoteOn from './ic_upvote_on.svg';
 import IcDownvoteOn from './ic_downvote_on.svg';
+import IcSend from './ic_send.svg';
+import IcAttach from './ic_attach.svg';
+import IcDelete from './ic_delete';
 
 export {
   IcBack,
@@ -44,4 +47,7 @@ export {
   IcAsk,
   IcDownvoteOn,
   IcUpvoteOn,
+  IcSend,
+  IcAttach,
+  IcDelete,
 };

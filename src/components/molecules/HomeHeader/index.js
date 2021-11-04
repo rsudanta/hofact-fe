@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {pointRule} from '../../../utils';
 
 const HomeHeader = ({image, poin}) => {
   return (
@@ -10,7 +11,7 @@ const HomeHeader = ({image, poin}) => {
       </View>
       <View style={styles.profileContainer}>
         <Image source={{uri: image}} style={styles.profile} />
-        <Text style={styles.exp}>{poin}/100XP</Text>
+        {pointRule(poin)}
       </View>
     </View>
   );
@@ -26,17 +27,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 32,
     paddingBottom: 24,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   profileContainer: {
-    alignItems: 'center',
-  },
-  exp: {
-    fontSize: 12,
-    fontFamily: 'Poppins-Light',
-    paddingTop: 7,
-    color: 'black',
+    alignItems: 'center'
   },
   appName: {fontSize: 22, fontFamily: 'Poppins-Medium', color: '#020202'},
-  subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'},
+  subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'}
 });

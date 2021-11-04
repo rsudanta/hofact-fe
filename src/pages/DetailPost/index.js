@@ -1,10 +1,14 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, EmptyAnswer, Gap, HeaderLogo, Post} from '../../components';
 import {API_HOST} from '../../config';
-import {getAnswerData, getVoteData} from '../../redux/action';
+import {
+  getAnswerData,
+  getDetailPostData,
+  getVoteData
+} from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
 const DetailPost = ({navigation, route}) => {
@@ -20,9 +24,11 @@ const DetailPost = ({navigation, route}) => {
   } = route.params);
 
   const [authID, setAuthID] = useState('');
+  const [hasAnswer, setHasAnswer] = useState(false);
   const [voting, setVoting] = useState('');
   const [token, setToken] = useState('');
   const {answer, vote} = useSelector(state => state.detailReducer);
+  const {refreshing} = useSelector(state => state.globalReducer);
 
   const dispatch = useDispatch();
 
@@ -67,7 +73,7 @@ const DetailPost = ({navigation, route}) => {
       });
   };
 
-  const finding = item => {
+  const findVote = item => {
     var result = vote.find(({id_jawaban}) => id_jawaban == item);
     return result;
   };
@@ -76,7 +82,7 @@ const DetailPost = ({navigation, route}) => {
     <View style={styles.page}>
       <HeaderLogo
         onBack={() => {
-          navigation.goBack();
+          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
         }}
       />
       <ScrollView>
@@ -99,6 +105,11 @@ const DetailPost = ({navigation, route}) => {
         <View>
           {item.isi_jawaban.length > 0 ? (
             answer.map(itemJawaban => {
+              {
+                if (itemJawaban.id_user == authID && hasAnswer == false) {
+                  setHasAnswer(true);
+                }
+              }
               return (
                 <Post
                   detailPost
@@ -123,21 +134,33 @@ const DetailPost = ({navigation, route}) => {
                     onDownvote(itemJawaban.id);
                   }}
                   hasVote={
-                    finding(itemJawaban.id)
-                      ? finding(itemJawaban.id).status
+                    findVote(itemJawaban.id)
+                      ? findVote(itemJawaban.id).status
                       : null
                   }
+                  imageAnswer={itemJawaban.gambar_url}
                 />
               );
             })
           ) : (
-            <EmptyAnswer text="Belum ada jawaban" />
+            <View>
+              <EmptyAnswer text="Belum ada jawaban" />
+              <Gap height={50} />
+            </View>
           )}
         </View>
       </ScrollView>
-      <View style={styles.button}>
-        {item.user.id != authID && <Button answer text="Jawab" />}
-      </View>
+      {item.user.id != authID && hasAnswer == false && (
+        <View style={styles.button}>
+          <Button
+            answer
+            text="Jawab"
+            onPress={() => {
+              navigation.navigate('FormAnswer', item);
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };

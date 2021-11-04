@@ -31,7 +31,8 @@ const Post = ({
   onUpvote,
   onDownvote,
   hasVote,
-  voteAuth
+  voteAuth,
+  imageAnswer
 }) => {
   var options = {
     year: 'numeric',
@@ -125,6 +126,17 @@ const Post = ({
             <View>
               <Gap height={14} />
               <Text style={styles.subTitle}>{answer}</Text>
+              {imageAnswer != null ? (
+                <Image
+                  style={styles.imageQuestion}
+                  resizeMode="cover"
+                  source={{
+                    uri: `https://hofact.masuk.id/storage/public/${imageAnswer}`,
+                  }}
+                />
+              ) : (
+                <></>
+              )}
               <View style={styles.bottomContainer}>
                 <View style={styles.voteContainer}>
                   {voteAuth == false ? (

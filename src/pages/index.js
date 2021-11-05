@@ -8,6 +8,9 @@ import Profile from './Profile';
 import FormQuestion from './FormQuestion';
 import DetailPost from './DetailPost';
 import FormAnswer from './FormAnswer';
+import Setting from './Setting';
+import EditProfile from './EditProfile';
+import EditPassword from './EditPassword';
 
 export {
   SplashScreen,
@@ -19,5 +22,8 @@ export {
   Profile,
   FormQuestion,
   DetailPost,
-  FormAnswer
+  FormAnswer,
+  Setting,
+  EditProfile,
+  EditPassword,
 };

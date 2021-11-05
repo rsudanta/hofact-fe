@@ -6,7 +6,7 @@ import {
   Gap,
   HomeHeader,
   Post,
-  RoundButton
+  RoundButton,
 } from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPostData, getProfileData, setLoading} from '../../redux/action';
@@ -50,6 +50,9 @@ const Home = ({navigation}) => {
               ? profile.profile_photo_url
               : `https://hofact.masuk.id/storage/public/${profile.photo_path}`
           }
+          onPress={() => {
+            navigation.navigate('Profile');
+          }}
         />
         <View style={styles.page}>
           <Gap height={20} />
@@ -97,6 +100,6 @@ export default Home;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F5F7FF',
-  },
+    backgroundColor: '#F5F7FF'
+  }
 });

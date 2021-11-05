@@ -10,6 +10,7 @@ import SelectCity from './SelectCity';
 import SelectGender from './SelectGender';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
+import SettingMenu from './SettingMenu';
 
 export {
   TextInput,
@@ -23,5 +24,6 @@ export {
   TextArea,
   ImagePicker,
   HeaderLogo,
-  EmptyAnswer
+  EmptyAnswer,
+  SettingMenu,
 };

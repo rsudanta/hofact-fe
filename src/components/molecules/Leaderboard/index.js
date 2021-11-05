@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import {ProfileDummy} from '../../../assets';
 import {formatedBadge, getData} from '../../../utils';
 
 const Leaderboard = ({color = '#FFC700'}) => {
@@ -15,10 +14,8 @@ const Leaderboard = ({color = '#FFC700'}) => {
     <View style={styles.page}>
       {leaderboard.map((item, index) => {
         return (
-          <>
-            <View
-              style={styles.container(authID == item.id ? color : 'white')}
-              key={item.id}>
+          <View key={item.id}>
+            <View style={styles.container(authID == item.id ? color : 'white')}>
               <Text style={styles.number}>{index + 1}</Text>
               <Image
                 source={
@@ -39,7 +36,7 @@ const Leaderboard = ({color = '#FFC700'}) => {
               <Text style={styles.exp}>{item.poin}XP</Text>
             </View>
             <View style={styles.line} />
-          </>
+          </View>
         );
       })}
     </View>

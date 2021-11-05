@@ -7,11 +7,9 @@ const ProfileHeader = ({image, name, badge}) => {
   return (
     <View style={styles.container}>
       <View style={styles.center}>
-        <TouchableOpacity onPress={() => {}}>
-          <View style={styles.borderPhoto}>
-            <Image source={{uri: image}} style={styles.photoContainer} />
-          </View>
-        </TouchableOpacity>
+        <View style={styles.borderPhoto}>
+          <Image source={{uri: image}} style={styles.photoContainer} />
+        </View>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.badge}>{formatedBadge(badge)}</Text>
       </View>
@@ -26,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingBottom: 26,
-    flex: 1
+    flex: 1,
   },
   photoContainer: {
     width: 90,
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#F0F0F0',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   borderPhoto: {
     borderWidth: 1,
@@ -45,18 +43,18 @@ const styles = StyleSheet.create({
     borderRadius: 110,
     borderStyle: 'dashed',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   center: {alignItems: 'center'},
   name: {
     fontFamily: 'Poppins-Medium',
     fontSize: 18,
     paddingTop: 16,
-    color: 'black'
+    color: 'black',
   },
   badge: {
     fontFamily: 'Poppins-Light',
     fontSize: 14,
-    color: '#8F9AD8',
-  },
+    color: '#8F9AD8'
+  }
 });

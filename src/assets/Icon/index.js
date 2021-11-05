@@ -22,7 +22,8 @@ import IcUpvoteOn from './ic_upvote_on.svg';
 import IcDownvoteOn from './ic_downvote_on.svg';
 import IcSend from './ic_send.svg';
 import IcAttach from './ic_attach.svg';
-import IcDelete from './ic_delete';
+import IcDelete from './ic_delete.svg';
+import IcMore from './ic_more.svg';
 
 export {
   IcBack,
@@ -50,4 +51,5 @@ export {
   IcSend,
   IcAttach,
   IcDelete,
+  IcMore
 };

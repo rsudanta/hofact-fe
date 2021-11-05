@@ -4,7 +4,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
@@ -15,7 +15,7 @@ import {
   Header,
   ImagePicker,
   TextArea,
-  TextInput
+  TextInput,
 } from '../../components';
 import {questionAction} from '../../redux/action';
 import {getData, showMessage, useForm} from '../../utils';
@@ -23,7 +23,7 @@ import {getData, showMessage, useForm} from '../../utils';
 const FormQuestion = ({navigation}) => {
   const [form, setForm] = useForm({
     judul_pertanyaan: '',
-    isi_pertanyaan: ''
+    isi_pertanyaan: '',
   });
 
   const [token, setToken] = useState('');
@@ -32,7 +32,7 @@ const FormQuestion = ({navigation}) => {
     getData('token').then(res => {
       setToken(res.value);
     });
-  });
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -43,7 +43,7 @@ const FormQuestion = ({navigation}) => {
   const addPhoto = () => {
     launchImageLibrary(
       {
-        quality: 0.7,
+        quality: 0.7
       },
       res => {
         console.log('Response photo = ', res);
@@ -55,7 +55,7 @@ const FormQuestion = ({navigation}) => {
           const dataImage = {
             uri: res.assets[0].uri,
             type: res.assets[0].type,
-            name: res.assets[0].fileName
+            name: res.assets[0].fileName,
           };
 
           setPhoto(source);
@@ -133,22 +133,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1,
+    flex: 1
   },
   photoContainer: {
     marginTop: 23,
     marginLeft: 18,
     width: 80,
     height: 80,
-    borderRadius: 10
+    borderRadius: 10,
   },
   icDelete: {
     position: 'absolute',
     right: 0,
     marginTop: 24,
-    marginRight: 2
+    marginRight: 2,
   },
   imagePickContainer: {
-    flexDirection: 'row',
-  }
+    flexDirection: 'row'
+  },
 });

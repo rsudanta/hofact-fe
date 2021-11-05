@@ -5,11 +5,14 @@ import {BottomNavigator} from '../components';
 import HeaderProfile from '../components/atoms/HeaderProfile';
 import {
   DetailPost,
+  EditPassword,
+  EditProfile,
   FormAnswer,
   FormQuestion,
   Home,
   Profile,
   Search,
+  Setting,
   SignIn,
   SignUp,
   SignUpProfile,
@@ -81,6 +84,42 @@ const Router = () => {
         name="FormAnswer"
         component={FormAnswer}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Setting"
+        component={Setting}
+        options={{
+          title: 'Pengaturan',
+          headerTitleStyle: {
+            fontFamily: 'Poppins-Medium',
+            fontSize: 22,
+            color: 'black',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          title: 'Ganti Profil',
+          headerTitleStyle: {
+            fontFamily: 'Poppins-Medium',
+            fontSize: 22,
+            color: 'black',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="EditPassword"
+        component={EditPassword}
+        options={{
+          title: 'Ganti Password',
+          headerTitleStyle: {
+            fontFamily: 'Poppins-Medium',
+            fontSize: 22,
+            color: 'black',
+          },
+        }}
       />
     </Stack.Navigator>
   );

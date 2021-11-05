@@ -9,7 +9,7 @@ const Badge = ({poin}) => {
       <View style={styles.badgeContainer}>
         {poin < 100 ? <Badge1 /> : <BadgeSuccess />}
         <View style={styles.textBadgeContainer}>
-          <Text style={styles.titleBadge}>Pencari Kebenaran</Text>
+          <Text style={styles.titleBadge}>Ambisius</Text>
           <Text style={styles.subtitleBadge}>
             Raih 100 XP dengan menjawab pertanyaan
           </Text>
@@ -35,7 +35,7 @@ const Badge = ({poin}) => {
       <View style={styles.badgeContainer}>
         {poin < 200 ? <Badge2 /> : <BadgeSuccess />}
         <View style={styles.textBadgeContainer}>
-          <Text style={styles.titleBadge}>Penantang Kebenaran</Text>
+          <Text style={styles.titleBadge}>Hebat</Text>
           <Text style={styles.subtitleBadge}>
             Raih 200 XP dengan menjawab pertanyaan
           </Text>
@@ -61,7 +61,7 @@ const Badge = ({poin}) => {
       <View style={styles.badgeContainer}>
         {poin < 300 ? <Badge3 /> : <BadgeSuccess />}
         <View style={styles.textBadgeContainer}>
-          <Text style={styles.titleBadge}>Orang Bijak</Text>
+          <Text style={styles.titleBadge}>Jenius</Text>
           <Text style={styles.subtitleBadge}>
             Raih 300 XP dengan menjawab pertanyaan
           </Text>
@@ -93,31 +93,31 @@ export default Badge;
 const styles = StyleSheet.create({
   badgeContainer: {
     flexDirection: 'row',
-    marginVertical: 12,
+    marginVertical: 12
   },
   textBadgeContainer: {
     justifyContent: 'center',
-    marginLeft: 10,
+    marginLeft: 10
   },
   titleBadge: {
     fontFamily: 'Poppins-Medium',
     fontSize: 14,
-    color: 'black'
+    color: 'black',
   },
   subtitleBadge: {
     fontFamily: 'Poppins-Light',
     fontSize: 12,
     color: 'black',
-    marginBottom: 8
+    marginBottom: 8,
   },
   expText: {
     fontFamily: 'Poppins-Light',
     fontSize: 12,
     color: 'black',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   line: {
     borderColor: '#C4C4C4',
-    borderWidth: 0.7
-  }
+    borderWidth: 0.7,
+  },
 });

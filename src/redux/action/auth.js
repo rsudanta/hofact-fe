@@ -18,8 +18,8 @@ export const signUpAction = (data, photoReducer, navigation) => dispatch => {
           .post(`${API_HOST.url}/user/photo`, dataPhoto, {
             headers: {
               Authorization: token,
-              'Content-Type': 'multipart/form-data',
-            }
+              'Content-Type': 'multipart/form-data'
+            },
           })
           .then(resUpload => {
             console.log('photo_url', resUpload.data.data[0]);
@@ -42,7 +42,7 @@ export const signUpAction = (data, photoReducer, navigation) => dispatch => {
     .catch(err => {
       dispatch(setLoading(false));
       console.log('error signup', err);
-      showMessage(err?.response?.data?.meta?.message);
+      showMessage('Data yang dimasukkan invalid');
     });
 };
 

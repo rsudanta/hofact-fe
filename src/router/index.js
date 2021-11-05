@@ -1,7 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/core';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {BottomNavigator} from '../components';
+import {BottomNavigator, HeaderSetting} from '../components';
 import HeaderProfile from '../components/atoms/HeaderProfile';
 import {
   DetailPost,
@@ -43,6 +44,8 @@ const MainApp = () => {
 };
 
 const Router = () => {
+  const navigation = useNavigation();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -89,36 +92,42 @@ const Router = () => {
         name="Setting"
         component={Setting}
         options={{
-          title: 'Pengaturan',
-          headerTitleStyle: {
-            fontFamily: 'Poppins-Medium',
-            fontSize: 22,
-            color: 'black',
-          },
+          header: () => (
+            <HeaderSetting
+              page="Pengaturan"
+              onBack={() => {
+                navigation.navigate('Profile');
+              }}
+            />
+          ),
         }}
       />
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
         options={{
-          title: 'Ganti Profil',
-          headerTitleStyle: {
-            fontFamily: 'Poppins-Medium',
-            fontSize: 22,
-            color: 'black',
-          },
+          header: () => (
+            <HeaderSetting
+              page="Ganti Profil"
+              onBack={() => {
+                navigation.navigate('Setting');
+              }}
+            />
+          ),
         }}
       />
       <Stack.Screen
         name="EditPassword"
         component={EditPassword}
         options={{
-          title: 'Ganti Password',
-          headerTitleStyle: {
-            fontFamily: 'Poppins-Medium',
-            fontSize: 22,
-            color: 'black',
-          },
+          header: () => (
+            <HeaderSetting
+              page="Ganti Password"
+              onBack={() => {
+                navigation.navigate('Setting');
+              }}
+            />
+          )
         }}
       />
     </Stack.Navigator>

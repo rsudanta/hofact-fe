@@ -11,6 +11,7 @@ import SelectGender from './SelectGender';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
 import SettingMenu from './SettingMenu';
+import HeaderSetting from './HeaderSetting';
 
 export {
   TextInput,
@@ -26,4 +27,5 @@ export {
   HeaderLogo,
   EmptyAnswer,
   SettingMenu,
+  HeaderSetting,
 };

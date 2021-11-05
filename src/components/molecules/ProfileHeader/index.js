@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingTop: 16,
     color: 'black',
+    textAlign: 'center'
   },
   badge: {
     fontFamily: 'Poppins-Light',

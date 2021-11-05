@@ -31,7 +31,7 @@ const Leaderboard = ({color = '#FFC700'}) => {
                 style={styles.image}
               />
               <View style={styles.nameContainer}>
-                <Text style={styles.name}>
+                <Text numberOfLines={1} style={styles.name}>
                   {authID == item.id ? 'Kamu' : item.name}
                 </Text>
                 <Text style={styles.badge}>{formatedBadge(item.poin)}</Text>
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
-    color: 'black'
+    color: 'black',
+    width: 180,
   },
   badge: {
     fontFamily: 'Poppins-Light',

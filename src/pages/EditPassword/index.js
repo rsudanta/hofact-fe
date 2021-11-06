@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {TextInput, Gap, Button} from '../../components';
+import {Button, Gap, TextInput} from '../../components';
 import {API_HOST} from '../../config';
 import {setLoading} from '../../redux/action';
 import {getData, showMessage, useForm} from '../../utils';
@@ -11,7 +11,7 @@ const EditPassword = ({navigation}) => {
   const [form, setForm] = useForm({
     current_password: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
   });
 
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ const EditPassword = ({navigation}) => {
       axios
         .post(`${API_HOST.url}/user/password`, form, {
           headers: {
-            Authorization: res.value,
-          },
+            Authorization: res.value
+          }
         })
         .then(resPass => {
           dispatch(setLoading(false));
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1
+    flex: 1,
   },
   page: {flex: 1, backgroundColor: 'white'},
   addPhoto: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: '#8D92A3',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });

@@ -46,9 +46,9 @@ const Search = ({navigation}) => {
       <ScrollView>
         {loadPost ? (
           <View>
-            <PostSkeleton />
-            <PostSkeleton />
-            <PostSkeleton />
+            {data.map(index => {
+              return <PostSkeleton />;
+            })}
           </View>
         ) : data.length == 0 ? (
           <EmptyAnswer text="Pencarian tidak ditemukan" />
@@ -89,13 +89,13 @@ export default Search;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   container: {
     backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingTop: 30,
-    paddingBottom: 24,
+    paddingBottom: 24
   },
-  title: {fontFamily: 'Poppins-Medium', fontSize: 22, color: '#020202'},
+  title: {fontFamily: 'Poppins-Medium', fontSize: 22, color: '#020202'}
 });

@@ -8,7 +8,7 @@ import {useForm} from '../../utils';
 const SignIn = ({navigation}) => {
   const [form, setForm] = useForm({
     email: '',
-    password: ''
+    password: '',
   });
 
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1
+    flex: 1,
   },
-  page: {flex: 1, backgroundColor: 'white'}
+  page: {flex: 1, backgroundColor: 'white'},
 });

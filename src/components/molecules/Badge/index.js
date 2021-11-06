@@ -93,31 +93,31 @@ export default Badge;
 const styles = StyleSheet.create({
   badgeContainer: {
     flexDirection: 'row',
-    marginVertical: 12
+    marginVertical: 12,
   },
   textBadgeContainer: {
     justifyContent: 'center',
-    marginLeft: 10
+    marginLeft: 10,
   },
   titleBadge: {
     fontFamily: 'Poppins-Medium',
     fontSize: 14,
-    color: 'black',
+    color: 'black'
   },
   subtitleBadge: {
     fontFamily: 'Poppins-Light',
     fontSize: 12,
     color: 'black',
-    marginBottom: 8,
+    marginBottom: 8
   },
   expText: {
     fontFamily: 'Poppins-Light',
     fontSize: 12,
     color: 'black',
-    textAlign: 'right',
+    textAlign: 'right'
   },
   line: {
     borderColor: '#C4C4C4',
-    borderWidth: 0.7,
-  },
+    borderWidth: 0.4
+  }
 });

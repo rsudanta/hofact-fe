@@ -17,7 +17,7 @@ import {
   SignIn,
   SignUp,
   SignUpProfile,
-  SplashScreen
+  SplashScreen,
 } from '../pages';
 
 const Stack = createStackNavigator();

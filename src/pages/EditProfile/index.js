@@ -10,14 +10,7 @@ import {
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  Button,
-  DateSelector,
-  Gap,
-  SelectCity,
-  SelectGender,
-  TextInput,
-} from '../../components';
+import {Button, Gap, TextInput} from '../../components';
 import {API_HOST} from '../../config';
 import {getProfileData, setLoading} from '../../redux/action';
 import {getData, showMessage, useForm} from '../../utils';
@@ -36,7 +29,7 @@ const EditProfile = ({navigation}) => {
   }, []);
 
   const [form, setForm] = useForm({
-    name: profile.name,
+    name: profile.name
   });
   const [photo, setPhoto] = useState('');
   const [imageData, setImageData] = useState({});
@@ -47,7 +40,7 @@ const EditProfile = ({navigation}) => {
       {
         quality: 0.7,
         maxWidth: 200,
-        maxHeight: 200,
+        maxHeight: 200
       },
       res => {
         console.log('Response photo = ', res);
@@ -59,7 +52,7 @@ const EditProfile = ({navigation}) => {
           const dataImage = {
             uri: res.assets[0].uri,
             type: res.assets[0].type,
-            name: res.assets[0].fileName
+            name: res.assets[0].fileName,
           };
 
           setPhoto(source);
@@ -76,8 +69,8 @@ const EditProfile = ({navigation}) => {
       axios
         .post(`${API_HOST.url}/user`, form, {
           headers: {
-            Authorization: res.value
-          }
+            Authorization: res.value,
+          },
         })
         .then(resEdit => {
           if (uploadStatus) {
@@ -87,8 +80,8 @@ const EditProfile = ({navigation}) => {
               .post(`${API_HOST.url}/user/photo`, dataPhoto, {
                 headers: {
                   Authorization: res.value,
-                  'Content-Type': 'multipart/form-data'
-                },
+                  'Content-Type': 'multipart/form-data',
+                }
               })
               .then(resUpload => {
                 profile.profile_photo_url = `https://hofact.masuk.id/storage/public/${resUpload.data.data[0]}`;
@@ -135,7 +128,7 @@ const EditProfile = ({navigation}) => {
             onChangeText={value => setForm('name', value)}
           />
           <Gap height={50} />
-          <Button text="Lanjutkan" onPress={onSubmit} />
+          <Button text="Simpan" onPress={onSubmit} />
         </View>
       </View>
     </ScrollView>
@@ -150,14 +143,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1,
+    flex: 1
   },
   page: {flex: 1, backgroundColor: 'white'},
   addPhoto: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: '#8D92A3',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   photoContainer: {
     width: 90,
@@ -166,7 +159,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#F0F0F0',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   borderPhoto: {
     borderWidth: 1,
@@ -176,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 110,
     borderStyle: 'dashed',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  photo: {alignItems: 'center', marginBottom: 16},
+  photo: {alignItems: 'center', marginBottom: 16}
 });

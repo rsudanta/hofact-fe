@@ -5,7 +5,6 @@ import {getData} from '../../utils';
 
 export const getAnswerData = id => dispatch => {
   dispatch(setLoadPost(true));
-  dispatch(setRefreshing(true));
   axios
     .get(`${API_HOST.url}/jawaban?id_pertanyaan=${id}`)
     .then(res => {

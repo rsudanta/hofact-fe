@@ -25,7 +25,7 @@ const Leaderboard = ({color = '#FFC700'}) => {
                   item.photo_path == null
                     ? {uri: item.profile_photo_url}
                     : {
-                        uri: `https://hofact.masuk.id/storage/public/${item.photo_path}`,
+                        uri: `https://hofact.masuk.id/storage/public/${item.photo_path}`
                       }
                 }
                 style={styles.image}
@@ -51,50 +51,50 @@ export default Leaderboard;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   container: color => ({
     flexDirection: 'row',
     paddingHorizontal: 24,
     alignItems: 'center',
     paddingVertical: 12,
-    backgroundColor: color,
+    backgroundColor: color
   }),
   number: {
     fontFamily: 'Poppins-Medium',
     fontSize: 20,
-    color: 'black',
+    color: 'black'
   },
   image: {
     width: 60,
     height: 60,
     borderRadius: 60,
-    marginLeft: 18
+    marginLeft: 18,
   },
   nameContainer: {
-    marginLeft: 12
+    marginLeft: 12,
   },
   name: {
     fontFamily: 'Poppins-SemiBold',
     fontSize: 16,
     color: 'black',
-    width: 180
+    width: 180,
   },
   badge: {
     fontFamily: 'Poppins-Light',
     fontSize: 14,
-    color: 'black',
+    color: 'black'
   },
   exp: {
     fontFamily: 'Poppins-Medium',
     fontSize: 16,
     color: 'black',
     flex: 1,
-    textAlign: 'right',
+    textAlign: 'right'
   },
   line: {
     borderColor: '#C4C4C4',
-    borderWidth: 0.7,
-    marginHorizontal: 24,
-  },
+    borderWidth: 0.4,
+    marginHorizontal: 24
+  }
 });

@@ -3,7 +3,6 @@ import {setLoadPost, setRefreshing} from '.';
 import {API_HOST} from '../../config';
 
 export const getPostData = () => dispatch => {
-  dispatch(setRefreshing(true));
   dispatch(setLoadPost(true));
 
   axios

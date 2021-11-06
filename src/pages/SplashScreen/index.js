@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
 import {Logo} from '../../assets';
-import {getProfileData} from '../../redux/action';
 import {getData} from '../../utils';
 
 const SplashScreen = ({navigation}) => {
@@ -33,12 +31,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#1D2D8C',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   text: {
     color: 'white',
     fontSize: 24,
     marginTop: -30,
-    fontFamily: 'Poppins-SemiBold',
-  },
+    fontFamily: 'Poppins-SemiBold'
+  }
 });

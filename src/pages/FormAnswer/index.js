@@ -1,11 +1,10 @@
-import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, View, TextInput, Image} from 'react-native';
+import {Image, ScrollView, StyleSheet, TextInput, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useDispatch, useSelector} from 'react-redux';
-import {IcAttach, IcDelete, IcSend, ProfileDummy} from '../../assets';
-import {Gap, HeaderLogo, Post} from '../../components';
+import {useDispatch} from 'react-redux';
+import {IcAttach, IcDelete, IcSend} from '../../assets';
+import {HeaderLogo, Post} from '../../components';
 import {answerAction} from '../../redux/action';
 import {getData, showMessage, useForm} from '../../utils';
 
@@ -18,7 +17,7 @@ const FormAnswer = ({navigation, route}) => {
     created_at,
     isi_jawaban,
     jawaban,
-    gambar_url,
+    gambar_url
   } = route.params);
 
   const [photo, setPhoto] = useState(null);
@@ -26,7 +25,7 @@ const FormAnswer = ({navigation, route}) => {
   const [isUploadPhoto, setIsUploadPhoto] = useState(false);
   const [form, setForm] = useForm({
     isi_jawaban: '',
-    id_pertanyaan: item.id
+    id_pertanyaan: item.id,
   });
 
   const [token, setToken] = useState('');
@@ -40,7 +39,7 @@ const FormAnswer = ({navigation, route}) => {
   const addPhoto = () => {
     launchImageLibrary(
       {
-        quality: 0.7,
+        quality: 0.7
       },
       res => {
         console.log('Response photo = ', res);
@@ -52,7 +51,7 @@ const FormAnswer = ({navigation, route}) => {
           const dataImage = {
             uri: res.assets[0].uri,
             type: res.assets[0].type,
-            name: res.assets[0].fileName
+            name: res.assets[0].fileName,
           };
 
           setPhoto(source);
@@ -110,6 +109,7 @@ const FormAnswer = ({navigation, route}) => {
         )}
         <View style={styles.inputContainer}>
           <TextInput
+            placeholderTextColor="#8D92A3"
             placeholder="Tulis jawaban anda disini"
             style={styles.input}
             multiline={true}
@@ -135,19 +135,19 @@ export default FormAnswer;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   container: {
     paddingHorizontal: 24,
     paddingVertical: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   jawaban: {
     paddingLeft: 24,
     paddingBottom: 20,
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: 'black',
+    color: 'black'
   },
   button: {
     flexDirection: 'row',
@@ -156,21 +156,22 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.5,
     borderColor: '#C4C4C4',
     color: 'white',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   input: {
     paddingHorizontal: 24,
     backgroundColor: 'white',
     height: '100%',
     textAlignVertical: 'top',
+    color: 'black',
   },
   ic: {
-    marginLeft: 16
+    marginLeft: 16,
   },
   image: {width: '100%', height: 200},
   deletePhoto: {
     position: 'absolute',
     margin: 10,
-    right: 0
-  }
+    right: 0,
+  },
 });

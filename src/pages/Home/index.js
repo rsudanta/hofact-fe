@@ -1,22 +1,16 @@
-import {useScrollToTop} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {useFocusEffect, useScrollToTop} from '@react-navigation/native';
+import React from 'react';
+import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   EmptyAnswer,
   Gap,
   HomeHeader,
   Post,
   PostSkeleton,
-  RoundButton
+  RoundButton,
 } from '../../components';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  getPostData,
-  getProfileData,
-  setLoading,
-  setLoadPost
-} from '../../redux/action';
-import {useFocusEffect} from '@react-navigation/native';
+import {getPostData, getProfileData, setRefreshing} from '../../redux/action';
 
 const Home = ({navigation}) => {
   const ref = React.useRef(null);
@@ -34,6 +28,7 @@ const Home = ({navigation}) => {
   );
 
   const onRefresh = React.useCallback(() => {
+    dispatch(setRefreshing(true));
     dispatch(getPostData());
     dispatch(getProfileData());
   }, []);
@@ -64,9 +59,9 @@ const Home = ({navigation}) => {
           <Gap height={20} />
           {loadPost ? (
             <View>
-              <PostSkeleton />
-              <PostSkeleton />
-              <PostSkeleton />
+              {post.map(item => {
+                return <PostSkeleton />;
+              })}
             </View>
           ) : post.length == 0 ? (
             <EmptyAnswer text="Tidak ada data" />

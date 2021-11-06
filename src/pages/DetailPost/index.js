@@ -8,14 +8,10 @@ import {
   Gap,
   HeaderLogo,
   Post,
-  PostSkeleton
+  PostSkeleton,
 } from '../../components';
 import {API_HOST} from '../../config';
-import {
-  getAnswerData,
-  getDetailPostData,
-  getVoteData,
-} from '../../redux/action';
+import {getAnswerData, getVoteData, setRefreshing} from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
 const DetailPost = ({navigation, route}) => {
@@ -51,6 +47,7 @@ const DetailPost = ({navigation, route}) => {
   }, [voting]);
 
   const onRefresh = React.useCallback(() => {
+    dispatch(setRefreshing(true));
     dispatch(getAnswerData(item.id));
   }, []);
 
@@ -119,9 +116,9 @@ const DetailPost = ({navigation, route}) => {
         <View>
           {loadPost ? (
             <View>
-              <PostSkeleton />
-              <PostSkeleton />
-              <PostSkeleton />
+              {item.isi_jawaban.map(item => {
+                return <PostSkeleton />;
+              })}
             </View>
           ) : item.isi_jawaban.length > 0 ? (
             answer.map(itemJawaban => {

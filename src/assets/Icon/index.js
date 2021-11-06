@@ -24,6 +24,7 @@ import IcSend from './ic_send.svg';
 import IcAttach from './ic_attach.svg';
 import IcDelete from './ic_delete.svg';
 import IcMore from './ic_more.svg';
+import IcAddImage from './ic_add_image.svg';
 
 export {
   IcBack,
@@ -51,5 +52,6 @@ export {
   IcSend,
   IcAttach,
   IcDelete,
-  IcMore
+  IcMore,
+  IcAddImage,
 };

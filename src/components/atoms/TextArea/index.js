@@ -6,6 +6,7 @@ const TextArea = ({label, placeholder, ...restProps}) => {
     <View>
       <Text style={styles.label}>{label}</Text>
       <TextInput
+        placeholderTextColor="#8D92A3"
         placeholder={placeholder}
         style={styles.input}
         multiline={true}
@@ -26,5 +27,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     textAlignVertical: 'top',
-  }
+    color: 'black'
+  },
 });

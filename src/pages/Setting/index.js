@@ -1,7 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {SettingMenu} from '../../components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Setting = ({navigation}) => {
   const signOut = () => {
@@ -33,6 +33,6 @@ export default Setting;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: 'white'
-  }
+    backgroundColor: 'white',
+  },
 });

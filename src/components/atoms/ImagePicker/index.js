@@ -1,21 +1,16 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {IcAddImage} from '../../../assets';
 
 const ImagePicker = ({label, placeholder, onPress, ...restProps}) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <View style={styles.input}>
-        <TouchableOpacity onPress={onPress} style={{width: 80}}>
-          <Text style={styles.add}>+</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={onPress} style={{width: 80}}>
+        <View style={styles.input}>
+          <IcAddImage />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -30,12 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 80,
     height: 80,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  add: {
-    fontSize: 58,
-    textAlign: 'center',
-    fontFamily: 'Poppins-Light'
-  }
 });

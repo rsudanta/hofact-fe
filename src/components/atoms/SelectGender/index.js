@@ -8,6 +8,7 @@ const SelectGender = ({label, value, onSelectChange}) => {
       <Text style={styles.label}>{label}</Text>
       <View style={styles.input}>
         <Picker
+          style={{color: 'black'}}
           selectedValue={value}
           onValueChange={(itemValue, itemIndex) => onSelectChange(itemValue)}>
           <Picker.Item label="Laki-Laki" value="Laki-Laki" />
@@ -22,5 +23,5 @@ export default SelectGender;
 
 const styles = StyleSheet.create({
   label: {fontSize: 14, fontFamily: 'Poppins-Regular', color: '#020202'},
-  input: {borderWidth: 1, borderColor: '#020202', borderRadius: 8, padding: 0},
+  input: {borderWidth: 1, borderColor: '#020202', borderRadius: 8, padding: 0}
 });

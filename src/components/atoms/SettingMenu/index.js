@@ -22,16 +22,16 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     fontFamily: 'Poppins-Light',
     fontSize: 16,
-    color: 'black',
+    color: 'black'
   },
   line: {
     borderColor: '#C4C4C4',
-    borderWidth: 0.7,
-    marginHorizontal: 24
-  }
+    borderWidth: 0.4,
+    marginHorizontal: 24,
+  },
 });

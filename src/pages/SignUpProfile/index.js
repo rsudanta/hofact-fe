@@ -18,7 +18,7 @@ const SignUpProfile = ({navigation}) => {
   const [form, setForm] = useForm({
     tanggal_lahir: date.toISOString().slice(0, 19).replace('T', ' '),
     jenis_kelamin: 'Laki-laki',
-    kota_asal: 'Bandung',
+    kota_asal: 'Bandung'
   });
 
   const {registerReducer, photoReducer} = useSelector(state => state);
@@ -29,7 +29,7 @@ const SignUpProfile = ({navigation}) => {
     console.log('form:', form);
     const data = {
       ...form,
-      ...registerReducer
+      ...registerReducer,
     };
     console.log('data register :', data);
     dispatch(setLoading(true));
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1,
+    flex: 1
   },
-  page: {flex: 1, backgroundColor: 'white'},
+  page: {flex: 1, backgroundColor: 'white'}
 });

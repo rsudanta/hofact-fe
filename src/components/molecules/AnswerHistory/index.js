@@ -14,7 +14,7 @@ const AnswerHistory = () => {
   var options = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   };
   const formatedDate = date => {
     return new Date(date).toLocaleDateString('id-ID', options);
@@ -66,31 +66,31 @@ export default AnswerHistory;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 24,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   text: {
     color: 'black',
     fontFamily: 'Poppins-Medium',
-    fontSize: 14,
+    fontSize: 14
   },
   bottomContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 5,
+    paddingTop: 5
   },
   totalVote: {
     fontFamily: 'Poppins-Light',
     color: '#8D8B8B',
-    fontSize: 12
+    fontSize: 12,
   },
   date: {
     color: '#8D8B8B',
     fontFamily: 'Poppins-Regular',
-    fontSize: 12,
+    fontSize: 12
   },
   line: {
     borderColor: '#C4C4C4',
-    borderWidth: 0.7,
-  }
+    borderWidth: 0.4
+  },
 });

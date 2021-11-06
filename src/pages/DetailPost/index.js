@@ -2,12 +2,19 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, EmptyAnswer, Gap, HeaderLogo, Post} from '../../components';
+import {
+  Button,
+  EmptyAnswer,
+  Gap,
+  HeaderLogo,
+  Post,
+  PostSkeleton
+} from '../../components';
 import {API_HOST} from '../../config';
 import {
   getAnswerData,
   getDetailPostData,
-  getVoteData
+  getVoteData,
 } from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
@@ -20,7 +27,7 @@ const DetailPost = ({navigation, route}) => {
     created_at,
     isi_jawaban,
     jawaban,
-    gambar_url
+    gambar_url,
   } = route.params);
 
   const [authID, setAuthID] = useState('');
@@ -28,7 +35,7 @@ const DetailPost = ({navigation, route}) => {
   const [voting, setVoting] = useState('');
   const [token, setToken] = useState('');
   const {answer, vote} = useSelector(state => state.detailReducer);
-  const {refreshing} = useSelector(state => state.globalReducer);
+  const {refreshing, loadPost} = useSelector(state => state.globalReducer);
 
   const dispatch = useDispatch();
 
@@ -43,12 +50,16 @@ const DetailPost = ({navigation, route}) => {
     dispatch(getAnswerData(item.id));
   }, [voting]);
 
+  const onRefresh = React.useCallback(() => {
+    dispatch(getAnswerData(item.id));
+  }, []);
+
   const onUpvote = idJawaban => {
     axios
       .post(`${API_HOST.url}/upvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token
-        }
+          Authorization: token,
+        },
       })
       .then(res => {
         setVoting(res.data.data.id);
@@ -62,8 +73,8 @@ const DetailPost = ({navigation, route}) => {
     axios
       .post(`${API_HOST.url}/downvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token
-        }
+          Authorization: token,
+        },
       })
       .then(res => {
         setVoting(res.data.data.id);
@@ -85,7 +96,10 @@ const DetailPost = ({navigation, route}) => {
           navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
         }}
       />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <Post
           detailPost
           isQuestion
@@ -103,7 +117,13 @@ const DetailPost = ({navigation, route}) => {
         />
         <Text style={styles.jawaban}>JAWABAN</Text>
         <View>
-          {item.isi_jawaban.length > 0 ? (
+          {loadPost ? (
+            <View>
+              <PostSkeleton />
+              <PostSkeleton />
+              <PostSkeleton />
+            </View>
+          ) : item.isi_jawaban.length > 0 ? (
             answer.map(itemJawaban => {
               {
                 if (itemJawaban.id_user == authID && hasAnswer == false) {
@@ -170,25 +190,25 @@ export default DetailPost;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F5F7FF',
+    backgroundColor: '#F5F7FF'
   },
   container: {
     paddingHorizontal: 24,
     paddingVertical: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   jawaban: {
     paddingLeft: 24,
     paddingBottom: 20,
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: 'black',
+    color: 'black'
   },
   button: {
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderTopWidth: 0.5,
     borderColor: '#C4C4C4',
-    color: 'white',
-  },
+    color: 'white'
+  }
 });

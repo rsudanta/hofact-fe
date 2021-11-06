@@ -9,6 +9,7 @@ import Loading from './Loading';
 import AnswerHistory from './AnswerHistory';
 import Badge from './Badge';
 import Leaderboard from './Leaderboard';
+import PostSkeleton from './PostSkeleton';
 
 export {
   Header,
@@ -21,5 +22,6 @@ export {
   Loading,
   AnswerHistory,
   Badge,
-  Leaderboard
+  Leaderboard,
+  PostSkeleton,
 };

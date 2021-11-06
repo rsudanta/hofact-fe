@@ -10,13 +10,13 @@ import {
   ProfileHeader,
   Progress,
   QuestionHistory,
-  Leaderboard,
+  Leaderboard
 } from '../../components';
 import {
   getLeaderboardData,
   getProfileData,
   getUserAnswerData,
-  getUserPostData,
+  getUserPostData
 } from '../../redux/action';
 
 const renderTabBar = props => (
@@ -28,7 +28,7 @@ const renderTabBar = props => (
       shadowOpacity: 0,
       elevation: 0,
       borderBottomColor: '#C4C4C4',
-      borderBottomWidth: 1,
+      borderBottomWidth: 1
     }}
     tabStyle={{width: 'auto'}}
     renderLabel={({route, focused, color}) => (
@@ -36,7 +36,7 @@ const renderTabBar = props => (
         style={{
           fontSize: 14,
           fontFamily: 'Poppins-Medium',
-          color: focused ? '#1D2D8C' : '#8F9AD8',
+          color: focused ? '#1D2D8C' : '#8F9AD8'
         }}>
         {route.title}
       </Text>
@@ -90,14 +90,14 @@ const Profile = () => {
     {key: 'first', title: 'Kemajuan'},
     {key: 'second', title: 'Pertanyaan'},
     {key: 'third', title: 'Jawaban'},
-    {key: 'fourth', title: 'Peringkat'},
+    {key: 'fourth', title: 'Peringkat'}
   ]);
 
   const renderScene = SceneMap({
     first: Kemajuan,
     second: Pertanyaan,
     third: Jawaban,
-    fourth: Peringkat,
+    fourth: Peringkat
   });
 
   return (
@@ -127,6 +127,6 @@ export default Profile;
 const styles = StyleSheet.create({
   scene: {
     flex: 1,
-    backgroundColor: 'white'
-  },
+    backgroundColor: 'white',
+  }
 });

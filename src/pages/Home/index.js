@@ -6,10 +6,16 @@ import {
   Gap,
   HomeHeader,
   Post,
-  RoundButton,
+  PostSkeleton,
+  RoundButton
 } from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {getPostData, getProfileData, setLoading} from '../../redux/action';
+import {
+  getPostData,
+  getProfileData,
+  setLoading,
+  setLoadPost
+} from '../../redux/action';
 import {useFocusEffect} from '@react-navigation/native';
 
 const Home = ({navigation}) => {
@@ -18,7 +24,7 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {post} = useSelector(state => state.homeReducer);
   const {profile} = useSelector(state => state.profileReducer);
-  const {refreshing} = useSelector(state => state.globalReducer);
+  const {refreshing, loadPost} = useSelector(state => state.globalReducer);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -56,7 +62,13 @@ const Home = ({navigation}) => {
         />
         <View style={styles.page}>
           <Gap height={20} />
-          {post.length == 0 ? (
+          {loadPost ? (
+            <View>
+              <PostSkeleton />
+              <PostSkeleton />
+              <PostSkeleton />
+            </View>
+          ) : post.length == 0 ? (
             <EmptyAnswer text="Tidak ada data" />
           ) : (
             post.map(itemPost => {
@@ -100,6 +112,6 @@ export default Home;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F5F7FF'
-  }
+    backgroundColor: '#F5F7FF',
+  },
 });

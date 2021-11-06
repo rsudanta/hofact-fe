@@ -4,3 +4,6 @@ export const setLoading = value => {
 export const setRefreshing = value => {
   return {type: 'SET_REFRESHING', value};
 };
+export const setLoadPost = value => {
+  return {type: 'SET_LOAD_POST', value};
+};

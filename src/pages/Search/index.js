@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {set} from 'react-native-reanimated';
-import {useDispatch} from 'react-redux';
-import {Post, TextInput} from '../../components';
+import {useDispatch, useSelector} from 'react-redux';
+import {EmptyAnswer, Post, PostSkeleton, TextInput} from '../../components';
 import {API_HOST} from '../../config';
-import {setLoading} from '../../redux/action';
+import {setLoadPost} from '../../redux/action';
 
 const Search = ({navigation}) => {
   const [searchInput, setSearchInput] = useState('');
@@ -13,16 +12,21 @@ const Search = ({navigation}) => {
   const dispatch = useDispatch();
   const [limit, setLimit] = useState(3);
 
+  const {loadPost} = useSelector(state => state.globalReducer);
+
   useEffect(() => {
+    dispatch(setLoadPost(true));
     axios
       .get(
         `${API_HOST.url}/pertanyaan?judul_pertanyaan=${searchInput}&limit=${limit}`
       )
       .then(res => {
         setData(res.data.data.data);
+        dispatch(setLoadPost(false));
       })
       .catch($e => {
         console.log('err get search', $e);
+        dispatch(setLoadPost(false));
       });
   }, [searchInput]);
 
@@ -40,31 +44,41 @@ const Search = ({navigation}) => {
         />
       </View>
       <ScrollView>
-        {data.map(itemData => {
-          return (
-            <Post
-              isQuestion
-              key={itemData.id}
-              name={itemData.user.name}
-              badge={itemData.user.poin}
-              title={itemData.judul_pertanyaan}
-              question={itemData.isi_pertanyaan}
-              verify={itemData.is_terverifikasi}
-              date={itemData.created_at}
-              totalAnswer={itemData.isi_jawaban}
-              image={
-                itemData.user.photo_path == null
-                  ? itemData.user.profile_photo_url
-                  : `https://hofact.masuk.id/storage/public/${itemData.user.photo_path}`
-              }
-              comment
-              onPress={() => {
-                navigation.navigate('DetailPost', itemData);
-                setSearchInput('');
-              }}
-            />
-          );
-        })}
+        {loadPost ? (
+          <View>
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+          </View>
+        ) : data.length == 0 ? (
+          <EmptyAnswer text="Pencarian tidak ditemukan" />
+        ) : (
+          data.map(itemData => {
+            return (
+              <Post
+                isQuestion
+                key={itemData.id}
+                name={itemData.user.name}
+                badge={itemData.user.poin}
+                title={itemData.judul_pertanyaan}
+                question={itemData.isi_pertanyaan}
+                verify={itemData.is_terverifikasi}
+                date={itemData.created_at}
+                totalAnswer={itemData.isi_jawaban}
+                image={
+                  itemData.user.photo_path == null
+                    ? itemData.user.profile_photo_url
+                    : `https://hofact.masuk.id/storage/public/${itemData.user.photo_path}`
+                }
+                comment
+                onPress={() => {
+                  navigation.navigate('DetailPost', itemData);
+                  setSearchInput('');
+                }}
+              />
+            );
+          })
+        )}
       </ScrollView>
     </View>
   );

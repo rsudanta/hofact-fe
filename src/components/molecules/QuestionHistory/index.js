@@ -2,9 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
-import {Gap} from '../..';
+import {EmptyAnswer, Gap} from '../..';
 import {IcAnswer} from '../../../assets';
 import {useNavigation} from '@react-navigation/native';
+import {Post} from '..';
 
 const QuestionHistory = () => {
   const navigation = useNavigation();
@@ -21,34 +22,38 @@ const QuestionHistory = () => {
 
   return (
     <View style={styles.container}>
-      {postUser.map(itemPost => {
-        return (
-          <TouchableOpacity
-            key={itemPost.id}
-            activeOpacity={0.7}
-            onPress={() => {
-              navigation.navigate('DetailPost', itemPost);
-            }}>
-            <Gap height={12} />
-            <Text style={styles.text} numberOfLines={2}>
-              {itemPost.judul_pertanyaan}
-            </Text>
-            <View style={styles.bottomContainer}>
-              <View style={styles.answerContainer}>
-                <IcAnswer />
-                <Text style={styles.countAnswer}>
-                  {itemPost.isi_jawaban.length}
+      {postUser.length == 0 ? (
+        <EmptyAnswer text="Kamu belum pernah bertanya" />
+      ) : (
+        postUser.map(itemPost => {
+          return (
+            <TouchableOpacity
+              key={itemPost.id}
+              activeOpacity={0.7}
+              onPress={() => {
+                navigation.navigate('DetailPost', itemPost);
+              }}>
+              <Gap height={12} />
+              <Text style={styles.text} numberOfLines={2}>
+                {itemPost.judul_pertanyaan}
+              </Text>
+              <View style={styles.bottomContainer}>
+                <View style={styles.answerContainer}>
+                  <IcAnswer />
+                  <Text style={styles.countAnswer}>
+                    {itemPost.isi_jawaban.length}
+                  </Text>
+                </View>
+                <Text style={styles.date}>
+                  {formatedDate(itemPost.created_at)}
                 </Text>
               </View>
-              <Text style={styles.date}>
-                {formatedDate(itemPost.created_at)}
-              </Text>
-            </View>
-            <Gap height={10} />
-            <View style={styles.line} />
-          </TouchableOpacity>
-        );
-      })}
+              <Gap height={10} />
+              <View style={styles.line} />
+            </TouchableOpacity>
+          );
+        })
+      )}
     </View>
   );
 };

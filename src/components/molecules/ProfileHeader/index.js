@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 24,
     paddingBottom: 26,
-    flex: 1,
+    flex: 1
   },
   photoContainer: {
     width: 90,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#F0F0F0',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   borderPhoto: {
     borderWidth: 1,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 110,
     borderStyle: 'dashed',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   center: {alignItems: 'center'},
   name: {
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingTop: 16,
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   badge: {
     fontFamily: 'Poppins-Light',
     fontSize: 14,
-    color: '#8F9AD8'
-  }
+    color: '#8F9AD8',
+  },
 });

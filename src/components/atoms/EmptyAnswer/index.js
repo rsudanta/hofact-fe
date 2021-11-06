@@ -16,11 +16,12 @@ export default EmptyAnswer;
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     fontFamily: 'Poppins-Medium',
     fontSize: 16,
-    color: 'black'
-  },
+    color: 'black',
+    textAlign: 'center',
+  }
 });

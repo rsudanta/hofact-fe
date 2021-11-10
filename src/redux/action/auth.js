@@ -42,7 +42,7 @@ export const signUpAction = (data, photoReducer, navigation) => dispatch => {
     .catch(err => {
       dispatch(setLoading(false));
       console.log('error signup', err);
-      showMessage('Data yang dimasukkan tidak valid');
+      showMessage(err.response.data.data.message);
     });
 };
 
@@ -61,6 +61,6 @@ export const signInAction = (data, navigation) => dispatch => {
     })
     .catch(err => {
       dispatch(setLoading(false));
-      showMessage('Email atau password salah');
+      showMessage(err.response.data.data.message);
     });
 };

@@ -1,17 +1,27 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Dimensions,
+  Image,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Gap} from '../..';
 import {
   IcAnswer,
+  IcDelete,
   IcDownvote,
   IcDownvoteOn,
   IcReply,
   IcUpvote,
   IcUpvoteOn,
   IcVerified,
-  ProfileDummy,
+  ProfileDummy
 } from '../../../assets';
 import {formatedBadge} from '../../../utils';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 
 const Post = ({
   onPress,
@@ -37,13 +47,16 @@ const Post = ({
   var options = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   };
   const formatedDate = new Date(date).toLocaleDateString('id-ID', options);
 
   const countAnswer = () => {
     return totalAnswer.length;
   };
+  const [modalQuestion, setModalQuestion] = useState(null);
+  const [modalAnswer, setModalAnswer] = useState(null);
+  const windowHeight = Dimensions.get('window').height;
 
   return (
     <>
@@ -109,13 +122,15 @@ const Post = ({
             <View>
               <Text style={styles.title}>{title}</Text>
               {imageQuestion != null ? (
-                <Image
-                  style={styles.imageQuestion}
-                  resizeMode="cover"
-                  source={{
-                    uri: `https://hofact.masuk.id/storage/public/${imageQuestion}`,
-                  }}
-                />
+                <TouchableOpacity onPress={() => setModalQuestion('active')}>
+                  <Image
+                    style={styles.imageQuestion}
+                    resizeMode="cover"
+                    source={{
+                      uri: `https://hofact.masuk.id/storage/public/${imageQuestion}`
+                    }}
+                  />
+                </TouchableOpacity>
               ) : (
                 <></>
               )}
@@ -127,13 +142,15 @@ const Post = ({
               <Gap height={14} />
               <Text style={styles.subTitle}>{answer}</Text>
               {imageAnswer != null ? (
-                <Image
-                  style={styles.imageQuestion}
-                  resizeMode="cover"
-                  source={{
-                    uri: `https://hofact.masuk.id/storage/public/${imageAnswer}`,
-                  }}
-                />
+                <TouchableOpacity onPress={() => setModalAnswer('active')}>
+                  <Image
+                    style={styles.imageQuestion}
+                    resizeMode="cover"
+                    source={{
+                      uri: `https://hofact.masuk.id/storage/public/${imageAnswer}`
+                    }}
+                  />
+                </TouchableOpacity>
               ) : (
                 <></>
               )}
@@ -161,6 +178,49 @@ const Post = ({
           )}
         </View>
       )}
+      <Modal visible={modalQuestion !== null} animationType="slide">
+        <ReactNativeZoomableView
+          maxZoom={4}
+          minZoom={1}
+          zoomStep={0.5}
+          initialZoom={1}
+          captureEvent={true}>
+          <Image
+            resizeMode="contain"
+            style={styles.imageModal}
+            source={{
+              uri: `https://hofact.masuk.id/storage/public/${imageQuestion}`
+            }}
+          />
+        </ReactNativeZoomableView>
+
+        <View style={styles.closeIcon}>
+          <TouchableOpacity onPress={() => setModalQuestion(null)}>
+            <IcDelete />
+          </TouchableOpacity>
+        </View>
+      </Modal>
+      <Modal visible={modalAnswer !== null} animationType="slide">
+        <ReactNativeZoomableView
+          maxZoom={4}
+          minZoom={1}
+          zoomStep={0.5}
+          initialZoom={1}
+          captureEvent={true}>
+          <Image
+            resizeMode="contain"
+            style={styles.imageModal}
+            source={{
+              uri: `https://hofact.masuk.id/storage/public/${imageAnswer}`
+            }}
+          />
+        </ReactNativeZoomableView>
+        <View style={styles.closeIcon}>
+          <TouchableOpacity onPress={() => setModalAnswer(null)}>
+            <IcDelete />
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </>
   );
 };
@@ -171,115 +231,122 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     paddingVertical: 18,
-    marginBottom: 20,
+    marginBottom: 20
   },
   headContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 24
+    marginHorizontal: 24,
   },
   profileContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   verifiedContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   greenText: {
     color: '#1AAE9F',
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    marginLeft: 3,
+    marginLeft: 3
   },
   title: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
     color: 'black',
     paddingTop: 14,
-    marginHorizontal: 24,
+    marginHorizontal: 24
   },
   subTitle: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: 'black',
     paddingTop: 4,
-    marginHorizontal: 24,
+    marginHorizontal: 24
   },
   answerContainer: {
     marginTop: 12,
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 24
+    marginHorizontal: 24,
   },
   bottomContainer: {
     marginTop: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 24
+    marginHorizontal: 24,
   },
   voteContainer: {
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   answerText: {
     fontFamily: 'Poppins-Medium',
     marginLeft: 6,
-    color: '#8F9AD8'
+    color: '#8F9AD8',
   },
   profile: {
     borderRadius: 50,
     width: 40,
     height: 40,
-    marginRight: 8
+    marginRight: 8,
   },
   dateContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   name: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
     color: 'black',
-    width: 180,
+    width: 180
   },
   badge: {
     fontFamily: 'Poppins-Light',
     color: 'black',
-    fontSize: 14,
+    fontSize: 14
   },
   dot: {
     width: 3,
     height: 3,
     borderRadius: 3,
     backgroundColor: '#8D8B8B',
-    marginHorizontal: 6,
+    marginHorizontal: 6
   },
   date: {
     fontFamily: 'Poppins-Light',
     color: '#8D8B8B',
-    fontSize: 13,
+    fontSize: 13
   },
   vote: {
     marginLeft: 12,
-    marginRight: 12
+    marginRight: 12,
   },
   voteText: {
     fontFamily: 'Poppins-Light',
     color: '#8D8B8B',
-    fontSize: 12,
+    fontSize: 12
   },
   replyText: {
     marginLeft: 8,
     fontFamily: 'Poppins-Light',
     color: '#1D2D8C',
-    fontSize: 14,
+    fontSize: 14
   },
   imageQuestion: {
     marginVertical: 14,
     width: '100%',
-    height: 200,
+    height: 200
+  },
+  imageModal: {width: '100%', height: '100%', backgroundColor: 'black'},
+  closeIcon: {
+    position: 'absolute',
+    right: 0,
+    marginHorizontal: 10,
+    marginVertical: 20
   },
 });

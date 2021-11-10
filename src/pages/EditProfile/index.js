@@ -99,7 +99,7 @@ const EditProfile = ({navigation}) => {
         .catch(err => {
           console.log('err edit', err);
           dispatch(setLoading(false));
-          showMessage('Data gagal diganti', 'success');
+          showMessage('Data gagal diganti');
         });
     });
   };

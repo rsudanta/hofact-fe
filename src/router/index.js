@@ -17,7 +17,7 @@ import {
   SignIn,
   SignUp,
   SignUpProfile,
-  SplashScreen,
+  SplashScreen
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -36,7 +36,7 @@ const MainApp = () => {
         name="Profile"
         component={Profile}
         options={{
-          header: () => <HeaderProfile />,
+          header: () => <HeaderProfile />
         }}
       />
     </Tab.Navigator>
@@ -99,7 +99,7 @@ const Router = () => {
                 navigation.navigate('Profile');
               }}
             />
-          ),
+          )
         }}
       />
       <Stack.Screen
@@ -113,7 +113,7 @@ const Router = () => {
                 navigation.navigate('Setting');
               }}
             />
-          ),
+          )
         }}
       />
       <Stack.Screen
@@ -127,7 +127,7 @@ const Router = () => {
                 navigation.navigate('Setting');
               }}
             />
-          )
+          ),
         }}
       />
     </Stack.Navigator>

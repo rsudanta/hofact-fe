@@ -1,5 +1,5 @@
 import {useFocusEffect, useScrollToTop} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -20,12 +20,10 @@ const Home = ({navigation}) => {
   const {profile} = useSelector(state => state.profileReducer);
   const {refreshing, loadPost} = useSelector(state => state.globalReducer);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      dispatch(getPostData());
-      dispatch(getProfileData());
-    }, [])
-  );
+  useEffect(() => {
+    dispatch(getPostData());
+    dispatch(getProfileData());
+  }, []);
 
   const onRefresh = React.useCallback(() => {
     dispatch(setRefreshing(true));
@@ -58,11 +56,19 @@ const Home = ({navigation}) => {
         <View style={styles.page}>
           <Gap height={20} />
           {loadPost ? (
-            <View>
-              {post.map(item => {
-                return <PostSkeleton />;
-              })}
-            </View>
+            post.length == 0 ? (
+              <View>
+                <PostSkeleton />
+                <PostSkeleton />
+                <PostSkeleton />
+              </View>
+            ) : (
+              <View>
+                {post.map(item => {
+                  return <PostSkeleton />;
+                })}
+              </View>
+            )
           ) : post.length == 0 ? (
             <EmptyAnswer text="Tidak ada data" />
           ) : (

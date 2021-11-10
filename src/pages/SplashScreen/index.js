@@ -1,9 +1,13 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {Logo} from '../../assets';
+import {getPostData, getProfileData} from '../../redux/action';
 import {getData} from '../../utils';
 
 const SplashScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => {
       getData('token').then(res => {

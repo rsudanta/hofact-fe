@@ -33,7 +33,7 @@ const EditPassword = ({navigation}) => {
         .catch(err => {
           console.log('error update password', err);
           dispatch(setLoading(false));
-          showMessage('Kata sandi gagal diganti');
+          showMessage(err.response.data.data.message);
         });
     });
   };

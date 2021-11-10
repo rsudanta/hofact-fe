@@ -31,20 +31,20 @@ export const questionAction =
             )
             .then(resUpload => {
               res.data.data.gambar_url = `https://hofact.masuk.id/storage/public/${resUpload.data.data[0]}`;
-              navigation.navigate('DetailPost', resUpload.data.data);
+              navigation.replace('DetailPost', resUpload.data.data);
             })
             .catch(err => {
               console.log('error upload', err);
               showMessage('Upload foto tidak berhasil');
-              navigation.navigate('DetailPost', res.data.data);
+              navigation.replace('DetailPost', res.data.data);
             });
         }
         dispatch(setLoading(false));
-        navigation.navigate('DetailPost', res.data.data);
+        navigation.replace('DetailPost', res.data.data);
       })
       .catch(err => {
         dispatch(setLoading(false));
-        showMessage('Data yang dimasukkan tidak valid');
+        showMessage(err.response.data.data.message);
       });
   };
 
@@ -116,7 +116,7 @@ export const answerAction =
       })
       .catch(err => {
         dispatch(setLoading(false));
-        showMessage('Data yang dimasukkan tidak valid');
+        showMessage(err.response.data.data.message);
       });
   };
 

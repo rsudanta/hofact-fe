@@ -1,6 +1,6 @@
 import {useFocusEffect} from '@react-navigation/core';
 import React from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {HScrollView} from 'react-native-head-tab-view';
 import {SceneMap, TabBar} from 'react-native-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
@@ -17,6 +17,7 @@ import {
   getProfileData,
   getUserAnswerData,
   getUserPostData,
+  setRefreshing,
 } from '../../redux/action';
 
 const renderTabBar = props => (
@@ -75,6 +76,10 @@ const initialLayout = {width: Dimensions.get('window').width};
 const Profile = () => {
   const dispatch = useDispatch();
   const {profile} = useSelector(state => state.profileReducer);
+  const {refreshing} = useSelector(state => state.globalReducer);
+  const onRefresh = React.useCallback(() => {
+    dispatch(setRefreshing(true));
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {

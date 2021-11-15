@@ -4,7 +4,6 @@ import {API_HOST} from '../../config';
 import {getData} from '../../utils';
 
 export const getAnswerData = id => dispatch => {
-  dispatch(setLoadPost(true));
   axios
     .get(`${API_HOST.url}/jawaban?id_pertanyaan=${id}`)
     .then(res => {
@@ -25,8 +24,8 @@ export const getVoteData = () => dispatch => {
       axios
         .get(`${API_HOST.url}/vote/${resUser.id}`, {
           headers: {
-            Authorization: resToken.value
-          }
+            Authorization: resToken.value,
+          },
         })
         .then(res => {
           dispatch({type: 'SET_VOTE', value: res.data.data});

@@ -11,8 +11,8 @@ export const questionAction =
     axios
       .post(`${API_HOST.url}/pertanyaan`, data, {
         headers: {
-          Authorization: token
-        }
+          Authorization: token,
+        },
       })
       .then(res => {
         if (isUploadPhoto) {
@@ -25,8 +25,8 @@ export const questionAction =
               {
                 headers: {
                   Authorization: token,
-                  'Content-Type': 'multipart/form-data'
-                },
+                  'Content-Type': 'multipart/form-data',
+                }
               }
             )
             .then(resUpload => {
@@ -54,8 +54,8 @@ export const answerAction =
     axios
       .post(`${API_HOST.url}/jawaban`, data, {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       })
       .then(res => {
         if (isUploadPhoto) {
@@ -68,8 +68,8 @@ export const answerAction =
               {
                 headers: {
                   Authorization: token,
-                  'Content-Type': 'multipart/form-data',
-                }
+                  'Content-Type': 'multipart/form-data'
+                },
               }
             )
             .then(resUpload => {
@@ -79,10 +79,7 @@ export const answerAction =
                   `http://hofact.masuk.id/api/pertanyaan?id=${res.data.data.id_pertanyaan}`
                 )
                 .then(resRoute => {
-                  navigation.reset({
-                    index: 0,
-                    routes: [{name: 'DetailPost', params: resRoute.data.data}]
-                  });
+                  navigation.replace('DetailPost', resRoute.data.data);
                   dispatch(setLoading(false));
                 });
             })
@@ -94,10 +91,7 @@ export const answerAction =
                   `http://hofact.masuk.id/api/pertanyaan?id=${res.data.data.id_pertanyaan}`
                 )
                 .then(resRoute => {
-                  navigation.reset({
-                    index: 0,
-                    routes: [{name: 'DetailPost', params: resRoute.data.data}],
-                  });
+                  navigation.replace('DetailPost', resRoute.data.data);
                   dispatch(setLoading(false));
                 });
             });
@@ -107,10 +101,7 @@ export const answerAction =
             `http://hofact.masuk.id/api/pertanyaan?id=${res.data.data.id_pertanyaan}`
           )
           .then(resRoute => {
-            navigation.reset({
-              index: 0,
-              routes: [{name: 'DetailPost', params: resRoute.data.data}]
-            });
+            navigation.replace('DetailPost', resRoute.data.data);
             dispatch(setLoading(false));
           });
       })

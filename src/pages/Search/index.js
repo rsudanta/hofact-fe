@@ -15,19 +15,23 @@ const Search = ({navigation}) => {
   const {loadPost} = useSelector(state => state.globalReducer);
 
   useEffect(() => {
-    dispatch(setLoadPost(true));
-    axios
-      .get(
-        `${API_HOST.url}/pertanyaan?judul_pertanyaan=${searchInput}&limit=${limit}`
-      )
-      .then(res => {
-        setData(res.data.data.data);
-        dispatch(setLoadPost(false));
-      })
-      .catch($e => {
-        console.log('err get search', $e);
-        dispatch(setLoadPost(false));
-      });
+    setTimeout(() => {
+      dispatch(setLoadPost(true));
+      axios
+        .get(
+          `${API_HOST.url}/pertanyaan?judul_pertanyaan=${searchInput}&limit=${limit}`
+        )
+        .then(res => {
+          setData(res.data.data.data);
+          setTimeout(() => {
+            dispatch(setLoadPost(false));
+          }, 1000);
+        })
+        .catch($e => {
+          console.log('err get search', $e);
+          dispatch(setLoadPost(false));
+        });
+    }, 1000);
   }, [searchInput]);
 
   return (
@@ -45,11 +49,7 @@ const Search = ({navigation}) => {
       </View>
       <ScrollView>
         {loadPost ? (
-          <View>
-            {data.map(index => {
-              return <PostSkeleton />;
-            })}
-          </View>
+          <PostSkeleton />
         ) : data.length == 0 ? (
           <EmptyAnswer text="Pencarian tidak ditemukan" />
         ) : (

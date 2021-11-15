@@ -3,6 +3,7 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -102,18 +103,20 @@ const FormQuestion = ({navigation}) => {
           />
           <Gap height={20} />
           <View style={styles.imagePickContainer}>
-            <ImagePicker label="Gambar" onPress={addPhoto} />
             {photo ? (
               <View>
-                <Image source={photo} style={styles.photoContainer} />
-                <View style={styles.icDelete}>
-                  <TouchableOpacity activeOpacity={0.7} onPress={onDelete}>
-                    <IcDelete />
-                  </TouchableOpacity>
+                <Text style={styles.label}>Gambar</Text>
+                <View>
+                  <Image source={photo} style={styles.photoContainer} />
+                  <View style={styles.icDelete}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={onDelete}>
+                      <IcDelete />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             ) : (
-              <></>
+              <ImagePicker label="Gambar" onPress={addPhoto} />
             )}
           </View>
           <Gap height={50} />
@@ -136,19 +139,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   photoContainer: {
-    marginTop: 23,
-    marginLeft: 18,
     width: 80,
     height: 80,
     borderRadius: 10
   },
   icDelete: {
     position: 'absolute',
-    right: 0,
-    marginTop: 24,
+    right: 3,
+    top: 3,
     marginRight: 2
   },
   imagePickContainer: {
     flexDirection: 'row',
-  }
+  },
+  label: {fontSize: 14, fontFamily: 'Poppins-Regular', color: '#020202'},
 });

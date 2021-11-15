@@ -11,7 +11,12 @@ import {
   PostSkeleton,
 } from '../../components';
 import {API_HOST} from '../../config';
-import {getAnswerData, getVoteData, setRefreshing} from '../../redux/action';
+import {
+  getAnswerData,
+  getVoteData,
+  setLoadPost,
+  setRefreshing
+} from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
 const DetailPost = ({navigation, route}) => {
@@ -36,6 +41,7 @@ const DetailPost = ({navigation, route}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setLoadPost(true));
     getData('userProfile').then(resProfile => {
       setAuthID(resProfile.id);
     });
@@ -90,7 +96,9 @@ const DetailPost = ({navigation, route}) => {
     <View style={styles.page}>
       <HeaderLogo
         onBack={() => {
-          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+          dispatch({type: 'SET_ANSWER', value: []});
+          dispatch({type: 'SET_VOTE', value: []});
+          navigation.goBack();
         }}
       />
       <ScrollView
@@ -173,7 +181,7 @@ const DetailPost = ({navigation, route}) => {
             answer
             text="Jawab"
             onPress={() => {
-              navigation.navigate('FormAnswer', item);
+              navigation.replace('FormAnswer', item);
             }}
           />
         </View>

@@ -9,6 +9,7 @@ const SplashScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getPostData());
     setTimeout(() => {
       getData('token').then(res => {
         if (res) {
@@ -35,12 +36,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#1D2D8C',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   text: {
     color: 'white',
     fontSize: 24,
     marginTop: -30,
-    fontFamily: 'Poppins-SemiBold'
-  }
+    fontFamily: 'Poppins-SemiBold',
+  },
 });

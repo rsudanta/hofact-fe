@@ -23,7 +23,7 @@ const HomeHeader = ({image, poin, onPress}) => {
               />
             </SkeletonPlaceholder>
           ) : (
-            <View>
+            <View style={styles.profileContainer}>
               <Image source={{uri: image}} style={styles.profile} />
               {pointRule(poin)}
             </View>
@@ -37,18 +37,22 @@ const HomeHeader = ({image, poin, onPress}) => {
 export default HomeHeader;
 
 const styles = StyleSheet.create({
-  profile: {width: 50, height: 50, borderRadius: 8},
   headContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 24,
     paddingTop: 32,
     paddingBottom: 24,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   profileContainer: {
     alignItems: 'center'
   },
+  profile: {
+    width: 50,
+    height: 50,
+    borderRadius: 8,
+  },
   appName: {fontSize: 22, fontFamily: 'Poppins-Medium', color: '#020202'},
-  subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'}
+  subTitle: {fontSize: 14, fontFamily: 'Poppins-Light', color: '#8D92A3'},
 });

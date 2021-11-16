@@ -10,7 +10,13 @@ import {
   PostSkeleton,
   RoundButton,
 } from '../../components';
-import {getPostData, getProfileData, setRefreshing} from '../../redux/action';
+import {
+  getAnswerData,
+  getPostData,
+  getProfileData,
+  setLoadPost,
+  setRefreshing,
+} from '../../redux/action';
 
 const Home = ({navigation}) => {
   const ref = React.useRef(null);
@@ -26,6 +32,7 @@ const Home = ({navigation}) => {
   }, []);
 
   const onRefresh = React.useCallback(() => {
+    dispatch(setLoadPost(true));
     dispatch(setRefreshing(true));
     dispatch(getPostData());
     dispatch(getProfileData());
@@ -55,22 +62,14 @@ const Home = ({navigation}) => {
         />
         <View style={styles.page}>
           <Gap height={20} />
-          {loadPost ? (
-            post.length == 0 ? (
-              <View>
-                <PostSkeleton />
-                <PostSkeleton />
-                <PostSkeleton />
-              </View>
-            ) : (
-              <View>
-                {post.map(item => {
-                  return <PostSkeleton />;
-                })}
-              </View>
-            )
-          ) : post.length == 0 ? (
+          {post.length == 0 ? (
             <EmptyAnswer text="Tidak ada data" />
+          ) : loadPost ? (
+            <View>
+              {post.map(item => {
+                return <PostSkeleton key={item.id} />;
+              })}
+            </View>
           ) : (
             post.map(itemPost => {
               return (

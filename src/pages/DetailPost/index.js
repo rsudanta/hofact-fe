@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Button,
@@ -8,14 +9,14 @@ import {
   Gap,
   HeaderLogo,
   Post,
-  PostSkeleton,
+  PostSkeleton
 } from '../../components';
 import {API_HOST} from '../../config';
 import {
   getAnswerData,
   getVoteData,
   setLoadPost,
-  setRefreshing
+  setRefreshing,
 } from '../../redux/action';
 import {getData, showMessage} from '../../utils';
 
@@ -28,7 +29,7 @@ const DetailPost = ({navigation, route}) => {
     created_at,
     isi_jawaban,
     jawaban,
-    gambar_url,
+    gambar_url
   } = route.params);
 
   const [authID, setAuthID] = useState('');
@@ -54,6 +55,7 @@ const DetailPost = ({navigation, route}) => {
 
   const onRefresh = React.useCallback(() => {
     dispatch(setRefreshing(true));
+    dispatch(setLoadPost(true));
     dispatch(getAnswerData(item.id));
   }, []);
 
@@ -61,8 +63,8 @@ const DetailPost = ({navigation, route}) => {
     axios
       .post(`${API_HOST.url}/upvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       })
       .then(res => {
         setVoting(res.data.data.id);
@@ -76,8 +78,8 @@ const DetailPost = ({navigation, route}) => {
     axios
       .post(`${API_HOST.url}/downvote/${idJawaban}`, null, {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       })
       .then(res => {
         setVoting(res.data.data.id);
@@ -97,7 +99,6 @@ const DetailPost = ({navigation, route}) => {
       <HeaderLogo
         onBack={() => {
           dispatch({type: 'SET_ANSWER', value: []});
-          dispatch({type: 'SET_VOTE', value: []});
           navigation.goBack();
         }}
       />
@@ -122,13 +123,19 @@ const DetailPost = ({navigation, route}) => {
         />
         <Text style={styles.jawaban}>JAWABAN</Text>
         <View>
-          {loadPost ? (
+          {item.isi_jawaban.length == 0 ? (
+            <View>
+              <EmptyAnswer text="Belum ada jawaban" />
+              <Gap height={50} />
+            </View>
+          ) : loadPost ? (
             <View>
               {item.isi_jawaban.map(item => {
-                return <PostSkeleton />;
+                return <PostSkeleton key={item.id} />;
               })}
             </View>
-          ) : item.isi_jawaban.length > 0 ? (
+          ) : (
+            item.isi_jawaban.length > 0 &&
             answer.map(itemJawaban => {
               {
                 if (itemJawaban.id_user == authID && hasAnswer == false) {
@@ -167,15 +174,12 @@ const DetailPost = ({navigation, route}) => {
                 />
               );
             })
-          ) : (
-            <View>
-              <EmptyAnswer text="Belum ada jawaban" />
-              <Gap height={50} />
-            </View>
           )}
         </View>
       </ScrollView>
-      {item.user.id != authID && hasAnswer == false && (
+      {item.user.id == authID ? (
+        <></>
+      ) : item.isi_jawaban.length == 0 ? (
         <View style={styles.button}>
           <Button
             answer
@@ -185,6 +189,18 @@ const DetailPost = ({navigation, route}) => {
             }}
           />
         </View>
+      ) : (
+        hasAnswer == false && (
+          <View style={styles.button}>
+            <Button
+              answer
+              text="Jawab"
+              onPress={() => {
+                navigation.replace('FormAnswer', item);
+              }}
+            />
+          </View>
+        )
       )}
     </View>
   );
@@ -195,25 +211,25 @@ export default DetailPost;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F5F7FF'
+    backgroundColor: '#F5F7FF',
   },
   container: {
     paddingHorizontal: 24,
     paddingVertical: 20,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   jawaban: {
     paddingLeft: 24,
     paddingBottom: 20,
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: 'black'
+    color: 'black',
   },
   button: {
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderTopWidth: 0.5,
     borderColor: '#C4C4C4',
-    color: 'white'
-  }
+    color: 'white',
+  },
 });

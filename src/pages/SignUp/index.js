@@ -5,18 +5,19 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
 import {useSelector, useDispatch} from 'react-redux';
 import {showMessage, useForm} from '../../utils';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import validator from 'validator';
 
 const SignUp = ({navigation}) => {
   const [form, setForm] = useForm({
     name: '',
     email: '',
-    password: '',
+    password: ''
   });
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const SignUp = ({navigation}) => {
       {
         quality: 0.7,
         maxWidth: 200,
-        maxHeight: 200
+        maxHeight: 200,
       },
       res => {
         console.log('Response photo = ', res);
@@ -37,12 +38,12 @@ const SignUp = ({navigation}) => {
           showMessage('Anda tidak memilih foto');
         } else {
           const source = {
-            uri: res.assets[0].uri,
+            uri: res.assets[0].uri
           };
           const dataImage = {
             uri: res.assets[0].uri,
             type: res.assets[0].type,
-            name: res.assets[0].fileName,
+            name: res.assets[0].fileName
           };
 
           setPhoto(source);
@@ -55,9 +56,20 @@ const SignUp = ({navigation}) => {
   };
 
   const onSubmit = () => {
-    console.log('form:', form);
-    dispatch({type: 'SET_REGISTER', value: form});
-    navigation.navigate('SignUpProfile');
+    if (validator.isEmpty(form.name)) {
+      showMessage('Nama lengkap harus diisi');
+    } else if (validator.isEmpty(form.email)) {
+      showMessage('Email harus diisi');
+    } else if (!validator.isEmail(form.email)) {
+      showMessage('Format email tidak tepat');
+    } else if (validator.isEmpty(form.password)) {
+      showMessage('Password harus diisi');
+    } else if (!validator.isLength(form.password, {min: 8, max: undefined})) {
+      showMessage('Password minimal 8 karakter');
+    } else {
+      dispatch({type: 'SET_REGISTER', value: form});
+      navigation.navigate('SignUpProfile');
+    }
   };
 
   return (
@@ -121,14 +133,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 26,
     marginTop: 24,
-    flex: 1,
+    flex: 1
   },
   page: {flex: 1, backgroundColor: 'white'},
   addPhoto: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
     color: '#8D92A3',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   photoContainer: {
     width: 90,
@@ -137,7 +149,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#F0F0F0',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   borderPhoto: {
     borderWidth: 1,
@@ -147,7 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 110,
     borderStyle: 'dashed',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  photo: {alignItems: 'center', marginBottom: 16},
+  photo: {alignItems: 'center', marginBottom: 16}
 });

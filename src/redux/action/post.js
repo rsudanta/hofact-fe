@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useState} from 'react';
 import {useSelector} from 'react-redux';
-import {setLoading, setRefreshing} from '.';
+import {setLoading, setLoadPost, setRefreshing} from '.';
 import {API_HOST} from '../../config';
 import {getData, showMessage, storeData} from '../../utils';
 
@@ -11,8 +11,8 @@ export const questionAction =
     axios
       .post(`${API_HOST.url}/pertanyaan`, data, {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       })
       .then(res => {
         if (isUploadPhoto) {
@@ -25,8 +25,8 @@ export const questionAction =
               {
                 headers: {
                   Authorization: token,
-                  'Content-Type': 'multipart/form-data',
-                }
+                  'Content-Type': 'multipart/form-data'
+                },
               }
             )
             .then(resUpload => {
@@ -54,8 +54,8 @@ export const answerAction =
     axios
       .post(`${API_HOST.url}/jawaban`, data, {
         headers: {
-          Authorization: token
-        }
+          Authorization: token,
+        },
       })
       .then(res => {
         if (isUploadPhoto) {
@@ -68,8 +68,8 @@ export const answerAction =
               {
                 headers: {
                   Authorization: token,
-                  'Content-Type': 'multipart/form-data'
-                },
+                  'Content-Type': 'multipart/form-data',
+                }
               }
             )
             .then(resUpload => {
@@ -122,5 +122,22 @@ export const getDetailPostData = id => dispatch => {
     .catch(err => {
       console.log('err get user post: ', err);
       dispatch(setRefreshing(true));
+    });
+};
+
+export const getSearchPostData = (searchInput, limit) => dispatch => {
+  axios
+    .get(
+      `${API_HOST.url}/pertanyaan?judul_pertanyaan=${searchInput}&limit=${limit}`
+    )
+    .then(res => {
+      dispatch({type: 'SET_SEARCH_POST', value: res.data.data.data});
+      setTimeout(() => {
+        dispatch(setLoadPost(false));
+      }, 2000);
+    })
+    .catch($e => {
+      console.log('err get search', $e);
+      dispatch(setLoadPost(false));
     });
 };

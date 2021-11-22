@@ -4,33 +4,20 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {EmptyAnswer, Post, PostSkeleton, TextInput} from '../../components';
 import {API_HOST} from '../../config';
-import {setLoadPost} from '../../redux/action';
+import {getSearchPostData, setLoadPost} from '../../redux/action';
 
 const Search = ({navigation}) => {
   const [searchInput, setSearchInput] = useState('');
-  const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const [limit, setLimit] = useState(3);
 
   const {loadPost} = useSelector(state => state.globalReducer);
+  const {searchPost} = useSelector(state => state.postReducer);
 
   useEffect(() => {
     setTimeout(() => {
       dispatch(setLoadPost(true));
-      axios
-        .get(
-          `${API_HOST.url}/pertanyaan?judul_pertanyaan=${searchInput}&limit=${limit}`
-        )
-        .then(res => {
-          setData(res.data.data.data);
-          setTimeout(() => {
-            dispatch(setLoadPost(false));
-          }, 1000);
-        })
-        .catch($e => {
-          console.log('err get search', $e);
-          dispatch(setLoadPost(false));
-        });
+      dispatch(getSearchPostData(searchInput, limit));
     }, 1000);
   }, [searchInput]);
 
@@ -50,10 +37,8 @@ const Search = ({navigation}) => {
       <ScrollView>
         {loadPost ? (
           <PostSkeleton />
-        ) : data.length == 0 ? (
-          <EmptyAnswer text="Pencarian tidak ditemukan" />
-        ) : (
-          data.map(itemData => {
+        ) : searchPost.length > 0 ? (
+          searchPost.map(itemData => {
             return (
               <Post
                 isQuestion
@@ -78,6 +63,10 @@ const Search = ({navigation}) => {
               />
             );
           })
+        ) : (
+          searchPost.length == 0 && (
+            <EmptyAnswer text="Pencarian tidak ditemukan" />
+          )
         )}
       </ScrollView>
     </View>

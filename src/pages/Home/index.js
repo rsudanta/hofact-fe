@@ -14,6 +14,7 @@ import {
   getAnswerData,
   getPostData,
   getProfileData,
+  getSearchPostData,
   setLoadPost,
   setRefreshing,
 } from '../../redux/action';
@@ -29,6 +30,7 @@ const Home = ({navigation}) => {
   useEffect(() => {
     dispatch(getPostData());
     dispatch(getProfileData());
+    dispatch(getSearchPostData('', ''));
   }, []);
 
   const onRefresh = React.useCallback(() => {

@@ -16,6 +16,7 @@ import {
   getAnswerData,
   getVoteData,
   setLoadPost,
+  getPostData,
   setRefreshing,
 } from '../../redux/action';
 import {getData, showMessage} from '../../utils';
@@ -99,6 +100,7 @@ const DetailPost = ({navigation, route}) => {
       <HeaderLogo
         onBack={() => {
           dispatch({type: 'SET_ANSWER', value: []});
+          dispatch(getPostData());
           navigation.goBack();
         }}
       />

@@ -1,19 +1,22 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {Logo} from '../../assets';
-import {getPostData, getProfileData} from '../../redux/action';
-import {getData} from '../../utils';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { Logo } from '../../assets';
+import { getPostData, getProfileData, getSearchPostData } from '../../redux/action';
+import { getData } from '../../utils';
 
-const SplashScreen = ({navigation}) => {
+const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPostData());
+    dispatch(getSearchPostData('', ''));
+    getData('userProfile').then(resProfile => {
+      dispatch({ type: 'SET_AUTH_ID', value: resProfile.id });
+    });
     setTimeout(() => {
       getData('token').then(res => {
         if (res) {
-          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+          navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] });
         } else {
           navigation.replace('SignIn');
         }

@@ -5,6 +5,7 @@ import {IcCalendar} from '../../../assets';
 
 const DateSelector = ({label, tanggal, onValueChange}) => {
   const [open, setOpen] = useState(false);
+  const d = new Date();
 
   return (
     <>
@@ -19,6 +20,7 @@ const DateSelector = ({label, tanggal, onValueChange}) => {
       </View>
       <DatePicker
         modal
+        maximumDate	={d}
         mode="date"
         open={open}
         date={tanggal}

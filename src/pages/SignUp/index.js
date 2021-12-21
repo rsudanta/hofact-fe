@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -7,13 +7,16 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import {Button, Gap, Header, TextInput} from '../../components';
-import {useSelector, useDispatch} from 'react-redux';
-import {showMessage, useForm} from '../../utils';
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import { Button, Gap, Header, TextInput } from '../../components';
+import { useSelector, useDispatch } from 'react-redux';
+import { showMessage, useForm } from '../../utils';
+import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import validator from 'validator';
 
-const SignUp = ({navigation}) => {
+
+const SignUp = ({ navigation }) => {
+  const [showPassword, setShowPassword] = useState(true);
+  const [iconName, setIconName] = useState('showPassword');
   const [form, setForm] = useForm({
     name: '',
     email: '',
@@ -48,8 +51,8 @@ const SignUp = ({navigation}) => {
 
           setPhoto(source);
 
-          dispatch({type: 'SET_PHOTO', value: dataImage});
-          dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+          dispatch({ type: 'SET_PHOTO', value: dataImage });
+          dispatch({ type: 'SET_UPLOAD_STATUS', value: true });
         }
       }
     );
@@ -64,10 +67,10 @@ const SignUp = ({navigation}) => {
       showMessage('Format email tidak tepat');
     } else if (validator.isEmpty(form.password)) {
       showMessage('Password harus diisi');
-    } else if (!validator.isLength(form.password, {min: 8, max: undefined})) {
+    } else if (!validator.isLength(form.password, { min: 8, max: undefined })) {
       showMessage('Password minimal 8 karakter');
     } else {
-      dispatch({type: 'SET_REGISTER', value: form});
+      dispatch({ type: 'SET_REGISTER', value: form });
       navigation.navigate('SignUpProfile');
     }
   };
@@ -111,9 +114,18 @@ const SignUp = ({navigation}) => {
           />
           <Gap height={16} />
           <TextInput
+            icon={iconName}
+            show={() => {
+              setShowPassword(false);
+              setIconName('hidePassword')
+            }}
+            hide={() => {
+              setShowPassword(true);
+              setIconName('showPassword')
+            }}
             label="Kata Sandi"
             placeholder="Masukkan kata sandi anda"
-            secureTextEntry
+            secureTextEntry={showPassword}
             value={form.password}
             onChangeText={value => setForm('password', value)}
           />
@@ -135,7 +147,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
     flex: 1
   },
-  page: {flex: 1, backgroundColor: 'white'},
+  page: { flex: 1, backgroundColor: 'white' },
   addPhoto: {
     fontSize: 14,
     fontFamily: 'Poppins-Light',
@@ -161,5 +173,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  photo: {alignItems: 'center', marginBottom: 16}
+  photo: { alignItems: 'center', marginBottom: 16 }
 });

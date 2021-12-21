@@ -94,10 +94,12 @@ const styles = StyleSheet.create({
   badgeContainer: {
     flexDirection: 'row',
     marginVertical: 12,
+    justifyContent:'space-between'
   },
   textBadgeContainer: {
     justifyContent: 'center',
-    marginLeft: 10,
+    flex:1,
+    marginLeft:15
   },
   titleBadge: {
     fontFamily: 'Poppins-Medium',

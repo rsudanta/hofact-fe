@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {useState} from 'react';
-import {useSelector} from 'react-redux';
-import {setLoading, setLoadPost, setRefreshing} from '.';
-import {API_HOST} from '../../config';
-import {getData, showMessage, storeData} from '../../utils';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { setLoading, setLoadPost, setRefreshing } from '.';
+import { API_HOST } from '../../config';
+import { getData, showMessage, storeData } from '../../utils';
 
 export const questionAction =
   (data, token, navigation, photoObject, isUploadPhoto) => dispatch => {
@@ -21,13 +21,12 @@ export const questionAction =
           axios
             .post(
               `${API_HOST.url}/pertanyaan/photo/${res.data.data.id}`,
-              dataPhoto,
-              {
-                headers: {
-                  Authorization: token,
-                  'Content-Type': 'multipart/form-data'
-                },
-              }
+              dataPhoto, {
+              headers: {
+                Authorization: token,
+                'Content-Type': 'multipart/form-data'
+              },
+            }
             )
             .then(resUpload => {
               res.data.data.gambar_url = `https://hofact.masuk.id/storage/public/${resUpload.data.data[0]}`;
@@ -64,13 +63,12 @@ export const answerAction =
           axios
             .post(
               `${API_HOST.url}/jawaban/photo/${res.data.data.id}`,
-              dataPhoto,
-              {
-                headers: {
-                  Authorization: token,
-                  'Content-Type': 'multipart/form-data',
-                }
+              dataPhoto, {
+              headers: {
+                Authorization: token,
+                'Content-Type': 'multipart/form-data',
               }
+            }
             )
             .then(resUpload => {
               res.data.data.gambar_url = `https://hofact.masuk.id/storage/public/${resUpload.data.data[0]}`;
@@ -116,7 +114,8 @@ export const getDetailPostData = id => dispatch => {
   axios
     .get(`${API_HOST.url}/pertanyaan?id=${id}`)
     .then(resPost => {
-      dispatch({type: 'SET_DETAIL_POST', value: resPost.data.data.data});
+      console.log(resPost.data.data);
+      dispatch({ type: 'SET_DETAIL_POST', value: resPost.data.data.data });
       dispatch(setRefreshing(false));
     })
     .catch(err => {
@@ -131,10 +130,8 @@ export const getSearchPostData = (searchInput, limit) => dispatch => {
       `${API_HOST.url}/pertanyaan?judul_pertanyaan=${searchInput}&limit=${limit}`
     )
     .then(res => {
-      dispatch({type: 'SET_SEARCH_POST', value: res.data.data.data});
-      setTimeout(() => {
-        dispatch(setLoadPost(false));
-      }, 2000);
+      dispatch({ type: 'SET_SEARCH_POST', value: res.data.data.data });
+      dispatch(setLoadPost(false));
     })
     .catch($e => {
       console.log('err get search', $e);

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   EmptyAnswer,
@@ -11,7 +11,7 @@ import {
   Post,
   PostSkeleton
 } from '../../components';
-import {API_HOST} from '../../config';
+import { API_HOST } from '../../config';
 import {
   getAnswerData,
   getVoteData,
@@ -19,9 +19,9 @@ import {
   getPostData,
   setRefreshing,
 } from '../../redux/action';
-import {getData, showMessage} from '../../utils';
+import { getData, showMessage } from '../../utils';
 
-const DetailPost = ({navigation, route}) => {
+const DetailPost = ({ navigation, route }) => {
   const item = ({
     id,
     judul_pertanyaan,
@@ -33,25 +33,40 @@ const DetailPost = ({navigation, route}) => {
     gambar_url
   } = route.params);
 
-  const [authID, setAuthID] = useState('');
-  const [hasAnswer, setHasAnswer] = useState(false);
+  const [hasAnswer, setHasAnswer] = useState(true);
   const [voting, setVoting] = useState('');
   const [token, setToken] = useState('');
-  const {answer, vote} = useSelector(state => state.detailReducer);
-  const {refreshing, loadPost} = useSelector(state => state.globalReducer);
+  const { answer, vote } = useSelector(state => state.detailReducer);
+  const { authID, refreshing, loadPost } = useSelector(state => state.globalReducer);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setLoadPost(true));
-    getData('userProfile').then(resProfile => {
-      setAuthID(resProfile.id);
-    });
+    dispatch(getAnswerData(item.id));
     getData('token').then(resToken => {
       setToken(resToken.value);
     });
     dispatch(getVoteData());
-    dispatch(getAnswerData(item.id));
+    axios
+      .get(`${API_HOST.url}/jawaban?id_pertanyaan=${item.id}`)
+      .then(res => {
+        for (var i = 0; i < res.data.data.data.length; i++) {
+          let result = res.data.data.data[i].id_user.includes(authID);
+          console.log('res', result);
+          console.log('has answ', hasAnswer);
+          if (result == true) {
+            setHasAnswer(true);
+            break;
+          }
+          else {
+            setHasAnswer(false);
+          }
+        }
+      })
+      .catch($e => {
+        console.log('err get jawaban', $e);
+      });
   }, [voting]);
 
   const onRefresh = React.useCallback(() => {
@@ -91,7 +106,7 @@ const DetailPost = ({navigation, route}) => {
   };
 
   const findVote = item => {
-    var result = vote.find(({id_jawaban}) => id_jawaban == item);
+    var result = vote.find(({ id_jawaban }) => id_jawaban == item);
     return result;
   };
 
@@ -99,7 +114,7 @@ const DetailPost = ({navigation, route}) => {
     <View style={styles.page}>
       <HeaderLogo
         onBack={() => {
-          dispatch({type: 'SET_ANSWER', value: []});
+          dispatch({ type: 'SET_ANSWER', value: [] });
           dispatch(getPostData());
           navigation.goBack();
         }}
@@ -139,11 +154,6 @@ const DetailPost = ({navigation, route}) => {
           ) : (
             item.isi_jawaban.length > 0 &&
             answer.map(itemJawaban => {
-              {
-                if (itemJawaban.id_user == authID && hasAnswer == false) {
-                  setHasAnswer(true);
-                }
-              }
               return (
                 <Post
                   detailPost
@@ -179,6 +189,7 @@ const DetailPost = ({navigation, route}) => {
           )}
         </View>
       </ScrollView>
+
       {item.user.id == authID ? (
         <></>
       ) : item.isi_jawaban.length == 0 ? (

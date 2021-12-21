@@ -1,16 +1,16 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
-import {EmptyAnswer, Gap} from '../..';
-import {IcAnswer} from '../../../assets';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { EmptyAnswer, Gap } from '../..';
+import { IcAnswer } from '../../../assets';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { API_HOST } from '../../../config';
 
 const AnswerHistory = () => {
   const navigation = useNavigation();
-
-  const {answerUser} = useSelector(state => state.profileReducer);
-  const {post} = useSelector(state => state.homeReducer);
+  const { answerUser } = useSelector(state => state.profileReducer);
   var options = {
     year: 'numeric',
     month: 'long',
@@ -19,10 +19,7 @@ const AnswerHistory = () => {
   const formatedDate = date => {
     return new Date(date).toLocaleDateString('id-ID', options);
   };
-  const findQuestion = item => {
-    var result = post.find(({id}) => id == item);
-    return result;
-  };
+
   return (
     <View style={styles.container}>
       {answerUser.length == 0 ? (
@@ -34,10 +31,16 @@ const AnswerHistory = () => {
               key={itemAnswer.id}
               activeOpacity={0.7}
               onPress={() => {
-                navigation.navigate(
-                  'DetailPost',
-                  findQuestion(itemAnswer.id_pertanyaan)
-                );
+                axios
+                .get(`${API_HOST.url}/pertanyaan?id=${itemAnswer.id_pertanyaan}`)
+                .then(res => {
+                  navigation.navigate(
+                    'DetailPost', res.data.data
+                  );
+                })
+                .catch(err => {
+                  console.log('err get post: ', err);
+                });
               }}>
               <Gap height={12} />
               <Text style={styles.text} numberOfLines={2}>

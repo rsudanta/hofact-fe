@@ -1,38 +1,55 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {EmptyAnswer, Post, PostSkeleton, TextInput} from '../../components';
-import {API_HOST} from '../../config';
-import {getSearchPostData, setLoadPost} from '../../redux/action';
+import React, { useEffect, useState } from 'react';
+import { FlatList, ScrollView, StyleSheet, Text, View, Keyboard } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { EmptyAnswer, Post, PostSkeleton, TextInput } from '../../components';
+import { API_HOST } from '../../config';
+import { getSearchPostData, setLoadPost } from '../../redux/action';
 
-const Search = ({navigation}) => {
+const Search = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState('');
   const dispatch = useDispatch();
   const [limit, setLimit] = useState(3);
 
-  const {loadPost} = useSelector(state => state.globalReducer);
-  const {searchPost} = useSelector(state => state.postReducer);
+  const { loadPost } = useSelector(state => state.globalReducer);
+  const { searchPost } = useSelector(state => state.postReducer);
 
   useEffect(() => {
-    setTimeout(() => {
+    dispatch(getSearchPostData(searchInput, limit));
+  }, []);
+
+  const handleSearch = () => {
+    if(searchInput!= ''){
       dispatch(setLoadPost(true));
-      dispatch(getSearchPostData(searchInput, limit));
-    }, 1000);
-  }, [searchInput]);
+      setLimit('');
+      dispatch(getSearchPostData(searchInput, limit))
+    }
+  }
 
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <Text style={styles.title}>Pencarian</Text>
-        <TextInput
-          placeholder="Cari pertanyaan.."
-          value={searchInput}
-          onChangeText={value => {
-            setSearchInput(value);
-            setLimit('');
-          }}
-        />
+        <View style={styles.search}>
+          <TextInput
+            placeholder="Cari pertanyaan.."
+            value={searchInput}
+            onChangeText={value => {
+              setSearchInput(value);
+            }}
+            onSubmitEditing={() => {
+              handleSearch()
+            }}
+
+          />
+          <TouchableOpacity style={styles.searchBtn} activeOpacity={0.7} onPress={() => {
+            handleSearch();
+            Keyboard.dismiss();
+          }}>
+            <Text style={styles.searchText}>Cari</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <ScrollView>
         {loadPost ? (
@@ -86,5 +103,17 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 24
   },
-  title: {fontFamily: 'Poppins-Medium', fontSize: 22, color: '#020202'}
+  title: { fontFamily: 'Poppins-Medium', fontSize: 22, color: '#020202' },
+  search: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  searchBtn: {
+    justifyContent: 'center',
+    flex: 1,
+  },
+  searchText: {
+    fontFamily: 'Poppins-Medium', fontSize: 16, color: '#1D2D8C',
+  }
+
 });

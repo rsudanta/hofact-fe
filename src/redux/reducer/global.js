@@ -3,7 +3,8 @@ const initGlobalState = {
   message: 'Error',
   isLoading: false,
   refreshing: false,
-  loadPost: false
+  loadPost: false,
+  authID:'',
 };
 
 export const globalReducer = (state = initGlobalState, action) => {
@@ -33,6 +34,12 @@ export const globalReducer = (state = initGlobalState, action) => {
     return {
       ...state,
       loadPost: action.value,
+    };
+  }
+  if (action.type === 'SET_AUTH_ID') {
+    return {
+      ...state,
+      authID: action.value,
     };
   }
   return state;

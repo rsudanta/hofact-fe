@@ -20,7 +20,8 @@ const Search = ({ navigation }) => {
   }, []);
 
   const handleSearch = () => {
-    if(searchInput!= ''){
+    const search = searchInput.replace(/^\s+/, '').replace(/\s+$/, '');
+    if(search!= ''){
       dispatch(setLoadPost(true));
       setLimit('');
       dispatch(getSearchPostData(searchInput, limit))

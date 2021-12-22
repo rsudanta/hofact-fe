@@ -92,6 +92,7 @@ const FormAnswer = ({navigation, route}) => {
           }
           name={item.user.name}
           badge={item.user.poin}
+          role={item.user.role}
           title={item.judul_pertanyaan}
           question={item.isi_pertanyaan}
           date={item.created_at}

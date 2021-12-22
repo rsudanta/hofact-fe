@@ -27,7 +27,7 @@ const Progress = () => {
             <View style={styles.textContainer}>
               <IcBadge />
               <Text style={styles.primaryText}>
-                {formatedBadge(profile.poin)}
+                {formatedBadge(profile.poin, profile.role)}
               </Text>
             </View>
             <Text style={styles.secondaryText}>Gelar</Text>

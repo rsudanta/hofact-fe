@@ -63,6 +63,7 @@ const Search = ({ navigation }) => {
                 key={itemData.id}
                 name={itemData.user.name}
                 badge={itemData.user.poin}
+                role={itemData.user.role}
                 title={itemData.judul_pertanyaan}
                 question={itemData.isi_pertanyaan}
                 verify={itemData.is_terverifikasi}

@@ -53,8 +53,6 @@ const DetailPost = ({ navigation, route }) => {
       .then(res => {
         for (var i = 0; i < res.data.data.data.length; i++) {
           let result = res.data.data.data[i].id_user.includes(authID);
-          console.log('res', result);
-          console.log('has answ', hasAnswer);
           if (result == true) {
             setHasAnswer(true);
             break;
@@ -133,6 +131,7 @@ const DetailPost = ({ navigation, route }) => {
           }
           name={item.user.name}
           badge={item.user.poin}
+          role={item.user.role}
           title={item.judul_pertanyaan}
           question={item.isi_pertanyaan}
           date={item.created_at}
@@ -165,6 +164,7 @@ const DetailPost = ({ navigation, route }) => {
                       : `https://hofact.masuk.id/storage/public/${itemJawaban.user.photo_path}`
                   }
                   badge={itemJawaban.user.poin}
+                  role={itemJawaban.user.role}
                   isAnswer
                   voteAuth={authID == itemJawaban.user.id ? true : false}
                   date={itemJawaban.created_at}

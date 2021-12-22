@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {SettingMenu} from '../../components';
+import { StyleSheet, View } from 'react-native';
+import { SettingMenu } from '../../components';
 
-const Setting = ({navigation}) => {
+const Setting = ({ navigation }) => {
   const signOut = () => {
     AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
-      navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+      navigation.reset({ index: 0, routes: [{ name: 'SignIn' }] });
     });
   };
   return (

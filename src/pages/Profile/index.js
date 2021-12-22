@@ -1,10 +1,10 @@
-import {useFocusEffect} from '@react-navigation/core';
+import { useFocusEffect } from '@react-navigation/core';
 import React from 'react';
-import {Dimensions, RefreshControl, StyleSheet, Text, View} from 'react-native';
-import {HScrollView} from 'react-native-head-tab-view';
-import {SceneMap, TabBar} from 'react-native-tab-view';
-import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
-import {useDispatch, useSelector} from 'react-redux';
+import { Dimensions, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import { HScrollView } from 'react-native-head-tab-view';
+import { SceneMap, TabBar } from 'react-native-tab-view';
+import { CollapsibleHeaderTabView } from 'react-native-tab-view-collapsible-header';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AnswerHistory,
   Leaderboard,
@@ -23,7 +23,7 @@ import {
 const renderTabBar = props => (
   <TabBar
     {...props}
-    indicatorStyle={{backgroundColor: '#1D2D8C', height: 3, width: 0.55}}
+    indicatorStyle={{ backgroundColor: '#1D2D8C', height: 3, width: 0.55 }}
     style={{
       backgroundColor: 'white',
       shadowOpacity: 0,
@@ -31,8 +31,8 @@ const renderTabBar = props => (
       borderBottomColor: '#C4C4C4',
       borderBottomWidth: 1,
     }}
-    tabStyle={{width: 'auto'}}
-    renderLabel={({route, focused, color}) => (
+    tabStyle={{ width: 'auto' }}
+    renderLabel={({ route, focused, color }) => (
       <Text
         style={{
           fontSize: 14,
@@ -71,12 +71,12 @@ const Peringkat = () => (
   </HScrollView>
 );
 
-const initialLayout = {width: Dimensions.get('window').width};
+const initialLayout = { width: Dimensions.get('window').width };
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const {profile} = useSelector(state => state.profileReducer);
-  const {refreshing} = useSelector(state => state.globalReducer);
+  const { profile } = useSelector(state => state.profileReducer);
+  const { refreshing } = useSelector(state => state.globalReducer);
   const onRefresh = React.useCallback(() => {
     dispatch(setRefreshing(true));
   }, []);
@@ -92,10 +92,10 @@ const Profile = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Kemajuan'},
-    {key: 'second', title: 'Pertanyaan'},
-    {key: 'third', title: 'Jawaban'},
-    {key: 'fourth', title: 'Peringkat'},
+    { key: 'first', title: 'Kemajuan' },
+    { key: 'second', title: 'Pertanyaan' },
+    { key: 'third', title: 'Jawaban' },
+    { key: 'fourth', title: 'Peringkat' },
   ]);
 
   const renderScene = SceneMap({
@@ -116,9 +116,10 @@ const Profile = () => {
           }
           name={profile.name}
           badge={profile.poin}
+          role={profile.role}
         />
       )}
-      navigationState={{index, routes}}
+      navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}

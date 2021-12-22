@@ -1,25 +1,21 @@
-import { useFocusEffect, useScrollToTop } from '@react-navigation/native';
+import { useScrollToTop } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  EmptyAnswer,
   Gap,
   HomeHeader,
   Post,
   PostSkeleton,
-  RoundButton,
+  RoundButton
 } from '../../components';
 import { API_HOST } from '../../config';
 import {
-  getAnswerData,
-  getPostData,
-  getProfileData,
-  getSearchPostData,
-  setLoadPost,
-  setRefreshing,
+  getProfileData, setLoadPost,
+  setRefreshing
 } from '../../redux/action';
+import { getData } from '../../utils';
 
 const Home = ({ navigation }) => {
   const ref = React.useRef(null);
@@ -62,6 +58,9 @@ const Home = ({ navigation }) => {
   };
 
   useEffect(() => {
+    getData('userProfile').then(resProfile => {
+      dispatch({ type: 'SET_AUTH_ID', value: resProfile.id });
+    });
     setIsLoading(true)
     dispatch(setLoadPost(true));
     dispatch(getProfileData());
@@ -153,6 +152,7 @@ const Home = ({ navigation }) => {
               key={item.id}
               name={item.user.name}
               badge={item.user.poin}
+              role={item.user.role}
               title={item.judul_pertanyaan}
               question={item.isi_pertanyaan}
               verify={item.is_terverifikasi}

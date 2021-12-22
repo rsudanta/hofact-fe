@@ -1,17 +1,17 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ProfileDummy} from '../../../assets';
-import {formatedBadge} from '../../../utils';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ProfileDummy } from '../../../assets';
+import { formatedBadge } from '../../../utils';
 
-const ProfileHeader = ({image, name, badge}) => {
+const ProfileHeader = ({ image, name, badge, role }) => {
   return (
     <View style={styles.container}>
       <View style={styles.center}>
         <View style={styles.borderPhoto}>
-          <Image source={{uri: image}} style={styles.photoContainer} />
+          <Image source={{ uri: image }} style={styles.photoContainer} />
         </View>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.badge}>{formatedBadge(badge)}</Text>
+        <Text style={styles.badge}>{formatedBadge(badge, role)}</Text>
       </View>
     </View>
   );
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  center: {alignItems: 'center'},
+  center: { alignItems: 'center' },
   name: {
     fontFamily: 'Poppins-Medium',
     fontSize: 18,

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {useSelector} from 'react-redux';
-import {formatedBadge, getData} from '../../../utils';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { formatedBadge, getData } from '../../../utils';
 
-const Leaderboard = ({color = '#FFC700'}) => {
-  const {leaderboard} = useSelector(state => state.profileReducer);
+const Leaderboard = ({ color = '#FFC700' }) => {
+  const { leaderboard } = useSelector(state => state.profileReducer);
   const [authID, setAuthID] = useState('');
 
   useEffect(() => {
@@ -23,10 +23,10 @@ const Leaderboard = ({color = '#FFC700'}) => {
               <Image
                 source={
                   item.photo_path == null
-                    ? {uri: item.profile_photo_url}
+                    ? { uri: item.profile_photo_url }
                     : {
-                        uri: `https://hofact.masuk.id/storage/public/${item.photo_path}`
-                      }
+                      uri: `https://hofact.masuk.id/storage/public/${item.photo_path}`
+                    }
                 }
                 style={styles.image}
               />
@@ -34,7 +34,7 @@ const Leaderboard = ({color = '#FFC700'}) => {
                 <Text numberOfLines={1} style={styles.name}>
                   {authID == item.id ? 'Kamu' : item.name}
                 </Text>
-                <Text style={styles.badge}>{formatedBadge(item.poin)}</Text>
+                <Text style={styles.badge}>{formatedBadge(item.poin, item.role)}</Text>
               </View>
               <Text style={styles.exp}>{item.poin}XP</Text>
             </View>

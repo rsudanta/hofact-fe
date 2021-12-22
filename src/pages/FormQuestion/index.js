@@ -114,7 +114,7 @@ const FormQuestion = ({navigation}) => {
                 </View>
               </View>
             ) : (
-              <ImagePicker label="Gambar" onPress={addPhoto} />
+              <ImagePicker label="Gambar (Opsional)" onPress={addPhoto} />
             )}
           </View>
           <Gap height={50} />

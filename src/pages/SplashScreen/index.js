@@ -2,17 +2,13 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Logo } from '../../assets';
-import { getPostData, getProfileData, getSearchPostData } from '../../redux/action';
+import { getSearchPostData } from '../../redux/action';
 import { getData } from '../../utils';
 
 const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getSearchPostData('', ''));
-    getData('userProfile').then(resProfile => {
-      dispatch({ type: 'SET_AUTH_ID', value: resProfile.id });
-    });
     setTimeout(() => {
       getData('token').then(res => {
         if (res) {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Gap} from '../..';
+import { Gap } from '../..';
 import {
+  IcAccVerified,
   IcAnswer,
   IcDelete,
   IcDownvote,
@@ -20,7 +21,7 @@ import {
   IcVerified,
   ProfileDummy
 } from '../../../assets';
-import {formatedBadge} from '../../../utils';
+import { formatedBadge } from '../../../utils';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 
 const Post = ({
@@ -33,6 +34,7 @@ const Post = ({
   date,
   name,
   badge,
+  role,
   totalAnswer,
   image,
   isQuestion,
@@ -65,13 +67,16 @@ const Post = ({
           <View style={styles.container}>
             <View style={styles.headContainer}>
               <View style={styles.profileContainer}>
-                <Image source={{uri: image}} style={styles.profile} />
+                <Image source={{ uri: image }} style={styles.profile} />
                 <View>
-                  <Text style={styles.name} numberOfLines={1}>
-                    {name}
-                  </Text>
+                  <View style={styles.nameContainer}>
+                    <Text style={styles.name} numberOfLines={1}>
+                      {name}
+                    </Text>
+                    {role == 'ADMIN' && <IcAccVerified width={14} />}
+                  </View>
                   <View style={styles.dateContainer}>
-                    <Text style={styles.badge}>{formatedBadge(badge)}</Text>
+                    <Text style={styles.badge}>{formatedBadge(badge, role)}</Text>
                     <View style={styles.dot} />
                     <Text style={styles.date}>{formatedDate}</Text>
                   </View>
@@ -98,13 +103,16 @@ const Post = ({
         <View style={styles.container}>
           <View style={styles.headContainer}>
             <View style={styles.profileContainer}>
-              <Image source={{uri: image}} style={styles.profile} />
+              <Image source={{ uri: image }} style={styles.profile} />
               <View>
-                <Text style={styles.name} numberOfLines={1}>
-                  {name}
-                </Text>
+                <View style={styles.nameContainer}>
+                  <Text style={styles.name} numberOfLines={1}>
+                    {name}
+                  </Text>
+                  {role == 'ADMIN' && <IcAccVerified width={14} />}
+                </View>
                 <View style={styles.dateContainer}>
-                  <Text style={styles.badge}>{formatedBadge(badge)}</Text>
+                  <Text style={styles.badge}>{formatedBadge(badge, role)}</Text>
                   <View style={styles.dot} />
                   <Text style={styles.date}>{formatedDate}</Text>
                 </View>
@@ -303,7 +311,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
     color: 'black',
-    width: 180
+    marginRight: 5
   },
   badge: {
     fontFamily: 'Poppins-Light',
@@ -342,11 +350,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200
   },
-  imageModal: {width: '100%', height: '100%', backgroundColor: 'black'},
+  imageModal: { width: '100%', height: '100%', backgroundColor: 'black' },
   closeIcon: {
     position: 'absolute',
     right: 0,
     marginHorizontal: 10,
     marginVertical: 20
+  },
+  nameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 180
   },
 });

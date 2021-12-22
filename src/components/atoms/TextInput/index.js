@@ -9,6 +9,7 @@ const TextInput = ({ icon, label, placeholder, show, hide, ...restProps }) => {
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.input}>
         <TextInputRN
+          style={styles.form}
           placeholderTextColor="#8D92A3"
           placeholder={placeholder}
           width={SCREEN_WIDTH - 100}
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   form: {
+    color:'black'
   },
   icon: {
     alignItems: 'flex-end',

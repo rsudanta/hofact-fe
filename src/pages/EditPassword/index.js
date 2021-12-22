@@ -84,11 +84,11 @@ const EditPassword = ({ navigation }) => {
           icon={iconNPWCName}
           show={() => {
             setShowNewConfirmationPassword(false);
-            iconNPWCName('hidePassword');
+            setIconNPWCName('hidePassword');
           }}
           hide={() => {
             setShowNewConfirmationPassword(true);
-            iconNPWCName('showPassword');
+            setIconNPWCName('showPassword');
           }}
           label="Konfirmasi Kata Sandi Baru"
           placeholder="Masukkan kata sandi baru anda"

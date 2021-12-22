@@ -1,11 +1,14 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {Button, Gap, Header, TextInput} from '../../components';
-import {signInAction} from '../../redux/action';
-import {useForm} from '../../utils';
+import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { Button, Gap, Header, TextInput } from '../../components';
+import { signInAction } from '../../redux/action';
+import { useForm } from '../../utils';
 
-const SignIn = ({navigation}) => {
+const SignIn = ({ navigation }) => {
+  const [showPassword, setShowPassword] = useState(true);
+  const [iconName, setIconName] = useState('showPassword');
   const [form, setForm] = useForm({
     email: '',
     password: '',
@@ -29,11 +32,20 @@ const SignIn = ({navigation}) => {
         />
         <Gap height={16} />
         <TextInput
+          icon={iconName}
+          show={() => {
+            setShowPassword(false);
+            setIconName('hidePassword')
+          }}
+          hide={() => {
+            setShowPassword(true);
+            setIconName('showPassword')
+          }}
           label="Kata Sandi"
           placeholder="Masukkan kata sandi anda"
           value={form.password}
           onChangeText={value => setForm('password', value)}
-          secureTextEntry
+          secureTextEntry={showPassword}
         />
         <Gap height={24} />
         <Button text="Masuk" onPress={onSubmit} />
@@ -58,5 +70,5 @@ const styles = StyleSheet.create({
     marginTop: 24,
     flex: 1,
   },
-  page: {flex: 1, backgroundColor: 'white'},
+  page: { flex: 1, backgroundColor: 'white' },
 });

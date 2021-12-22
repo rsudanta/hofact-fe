@@ -169,8 +169,8 @@ const Home = ({ navigation }) => {
               }}
             />)
         )}
+        onEndReachedThreshold={0.1}
         onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.5}
       >
       </FlatList>
       <RoundButton

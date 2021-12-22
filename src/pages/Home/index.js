@@ -1,7 +1,7 @@
 import { useFocusEffect, useScrollToTop } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   EmptyAnswer,
@@ -31,6 +31,7 @@ const Home = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(undefined);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = () => {
     axios
@@ -42,6 +43,7 @@ const Home = ({ navigation }) => {
           (setData([...data, ...res.data.data.data]))
         dispatch(setRefreshing(false));
         dispatch(setLoadPost(false));
+        setIsLoading(false);
       })
       .catch(err => {
         console.log('err get post: ', err);
@@ -60,6 +62,8 @@ const Home = ({ navigation }) => {
   };
 
   useEffect(() => {
+    setIsLoading(true)
+    dispatch(setLoadPost(true));
     dispatch(getProfileData());
     fetchData();
   }, []);
@@ -86,6 +90,30 @@ const Home = ({ navigation }) => {
       </View>
     );
   };
+
+  if (isLoading) {
+    return <View>
+      <HomeHeader
+        title="Beranda"
+        subTitle="Temukan jawabanmu!"
+        poin={profile.poin}
+        image={
+          profile.photo_path == null
+            ? profile.profile_photo_url
+            : `https://hofact.masuk.id/storage/public/${profile.photo_path}`
+        }
+        onPress={() => {
+          navigation.navigate('Profile');
+        }}
+      />
+      <Gap height={20} />
+      <View>
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton />
+      </View>
+    </View>
+  }
 
   return (
     <>
@@ -118,7 +146,7 @@ const Home = ({ navigation }) => {
         renderItem={({ item }) => (
           loadPost ? (
             <View>
-              <PostSkeleton key={item.id} />
+              <PostSkeleton />
             </View>
           ) : (
             <Post
